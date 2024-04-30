@@ -3,10 +3,11 @@ const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const EslintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const baseConfig = {
-  entry: path.resolve(__dirname, './src/index.ts'),
+  entry: path.resolve(__dirname, './src/index.tsx'),
   mode: 'development',
   module: {
     rules: [
@@ -15,7 +16,7 @@ const baseConfig = {
         type: 'asset/resource',
       },
       {
-        test: /\.[jt]s?$/,
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -73,6 +74,7 @@ const baseConfig = {
       patterns: [{ from: './public' }],
     }),
     new CleanWebpackPlugin(),
+    new EslintPlugin({ extensions: ['tsx', 'ts', 'js', 'jsx'], }),
     new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
   ],
 };
