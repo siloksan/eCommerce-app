@@ -35,5 +35,3 @@ To run ESLint checking for syntax and style errors, use the following command:
 ```bash
 npm run lint
 ```
-
-Absolutely! Adding detailed setup instructions to the README can greatly benefit newcomers and contributors. Here's an example of how you might add these instructions:
