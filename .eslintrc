@@ -1,0 +1,52 @@
+{
+  "root": true,
+  "extends": [
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:prettier/recommended",
+      "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 2020,
+      "project": "./tsconfig.json",
+      "ecmaFeatures": {
+          "jsx": true
+      }
+  },
+  "env": {
+      "es6": true,
+      "browser": true,
+      "node": true
+  },
+  "plugins": [
+      "@typescript-eslint",
+      "react",
+      "prettier"
+  ],
+  "rules": {
+      "@typescript-eslint/no-var-requires": "off",
+      "import/extension": "off",
+      "no-plusplus": "off",
+      "no-debugger": "off",
+      "react/prop-types": "off",
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
+      ],
+      "no-console": "off",
+      "class-methods-use-this": "off",
+      "@typescript-eslint/no-explicit-any": "error"
+  },
+  "ignorePatterns": [
+    "*config.js"
+  ],
+  "settings": {
+      "react": {
+          "version": "detect"
+      }
+  }
+}
