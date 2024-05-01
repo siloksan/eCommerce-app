@@ -35,3 +35,9 @@ To run ESLint checking for syntax and style errors, use the following command:
 ```bash
 npm run lint
 ```
+
+#### 6. Lint Code
+To run Jest tests for comprehensive testing of code functionality, use the following command:
+```bash
+npm run test
+```
