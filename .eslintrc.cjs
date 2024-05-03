@@ -23,5 +23,11 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react/react-in-jsx-scope': 0,
+        "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
   },
 };
