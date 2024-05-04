@@ -18,8 +18,11 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Vitests */
+    "types": ["@types/react-dom"]
   },
-  "include": [".eslintrc.cjs", "src"],
+  "include": ["vite.config.ts" ,".eslintrc.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
