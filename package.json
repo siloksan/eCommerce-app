@@ -11,7 +11,8 @@
     "lint": "npm run lint:code && npm run lint:types",
     "lint:code": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:types": "tsc --noEmit",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky"
   },
   "dependencies": {
     "react": "^18.2.0",
