@@ -20,7 +20,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-        /* Linting */
+    /* Vitests */
+    "types": ["@types/react-dom"],
+    
+    /* Paths */
     "baseUrl": "src",
     "paths": {
       "components/*": ["components/*"],
@@ -31,6 +34,6 @@
       "*.ts": ["./*"]
     }
   },
-  "include": [".eslintrc.cjs", "src"],
+  "include": ["vite.config.ts" ,".eslintrc.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

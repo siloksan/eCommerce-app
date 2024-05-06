@@ -1,5 +1,5 @@
 function App() {
-  return <div>eCommerce-App</div>;
+  return <h1>eCommerce-App</h1>;
 }
 
 export default App;
