@@ -2,6 +2,33 @@
 
 This is a final project for the [Rolling Scopes School Frontend Course](https://rs.school/courses/javascript-mentoring-program).
 
+## About the project
+
+This is an eCommerce online shopping portal powered by CommerceTools.
+The application is ensured to be user friendly and provides a pleasant experience for users on various devices.
+
+The key pages for this application are: 
+- Login Page
+- Registration Page
+- Main Page
+- Catalog Product Page
+- Detailed Product Page
+- User Profile Page
+- Basket Page
+- About us page
+
+## Technology stack
+
+### Main technologies
+- React + TypeScript
+- Sass + modules.scss
+
+### Development tools
+- Vite
+- Vitest
+- Husky
+- ESlint + Prettier
+
 ### Available Scripts
 
 In this project, you can run the following scripts:
