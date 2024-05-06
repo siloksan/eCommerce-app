@@ -21,7 +21,18 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Vitests */
-    "types": ["@types/react-dom"]
+    "types": ["@types/react-dom"],
+    
+    /* Paths */
+    "baseUrl": "src",
+    "paths": {
+      "components/*": ["components/*"],
+      "app/*": ["app/*"],
+      "pages/*": ["pages/*"],
+      "layout/*": ["layout/*"],
+      "utils/*": ["utils/*"],
+      "*.ts": ["./*"]
+    }
   },
   "include": ["vite.config.ts" ,".eslintrc.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]

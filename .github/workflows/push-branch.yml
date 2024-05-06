@@ -1,0 +1,23 @@
+name: push branch
+run-name: ${{ github.actor }} is pushing the branch in repository
+on: [push]
+jobs:
+  init: 
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 20.x ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Starting Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install modules
+        run: npm install
+      - name: build project
+        run: npm run build
+      - name: format code
+        run: npm run format
+      - name: lint code
+        run: npm run lint
