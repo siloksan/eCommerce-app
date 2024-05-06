@@ -42,7 +42,7 @@
     "vite": "^5.2.0"
   },
   "validate-branch-name": {
-    "pattern": "(init|feat|fix|refactor|docs|chore)/RSS\\-PZ\\-\\d+_\\w+",
+    "pattern": "(config|feat|fix|refactor|docs|chore)/RSS-ECOMM-\\d+-\\d+_\\w+",
     "errorMsg": "Branch name is invalid"
   }
 }
