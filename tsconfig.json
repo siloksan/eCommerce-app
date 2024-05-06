@@ -18,7 +18,18 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+        /* Linting */
+    "baseUrl": "src",
+    "paths": {
+      "components/*": ["components/*"],
+      "app/*": ["app/*"],
+      "pages/*": ["pages/*"],
+      "layout/*": ["layout/*"],
+      "utils/*": ["utils/*"],
+      "*.ts": ["./*"]
+    }
   },
   "include": [".eslintrc.cjs", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
