@@ -3,7 +3,7 @@ import classes from './Registration.module.scss';
 
 export default function RegistrationPage() {
   return (
-    <div className={classes.registration__container}>
+    <div className={classes.container}>
       <RegistrationForm />
     </div>
   );

@@ -1,13 +1,26 @@
 import { useFormContext } from 'react-hook-form';
-import classes from './Input.module.scss';
+import classes from './Select.module.scss';
+
+type Option = {
+  country: string;
+  countryCode: string;
+};
 
 interface Props {
   label: string;
   fieldName: string;
-  type: string;
+  options: Option[];
 }
 
-function Input({ label, fieldName, type }: Props) {
+function Select({ label, fieldName, options }: Props) {
+  const optionsElement = options.map((option) => {
+    const { country, countryCode } = option;
+    return (
+      <option value={countryCode} key={country}>
+        {country}
+      </option>
+    );
+  });
   const {
     register,
     formState: { errors },
@@ -16,7 +29,7 @@ function Input({ label, fieldName, type }: Props) {
   return (
     <label className={classes.container}>
       {label}
-      <input {...register(fieldName)} type={type} />
+      <select {...register(fieldName)}>{optionsElement}</select>
       {errors[fieldName] ? (
         <span className={classes.error}>errors[fieldName].message</span>
       ) : (
@@ -26,4 +39,4 @@ function Input({ label, fieldName, type }: Props) {
   );
 }
 
-export default Input;
+export default Select;

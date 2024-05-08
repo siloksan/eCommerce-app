@@ -1,59 +1,44 @@
-// import Input from 'components/Input/Input';
-// import { useFormContext } from 'react-hook-form';
+import Input from 'components/Input/Input';
+import { useFormContext } from 'react-hook-form';
+import classes from './CustomerForm.module.scss';
 
-// const customerFields = {
-//   email: {
-//     name: 'email',
-//     type: 'input',
-//   },
-//   password: {
-//     name: 'password',
-//     type: 'input',
-//   },
-//   firstName: {
-//     name: 'firstName',
-//     type: 'input',
-//   },
-//   lastName: {
-//     name: 'lastName',
-//     type: 'input',
-//   },
-//   dateOfBirth: {
-//     name: 'dateOfBirth',
-//     type: 'input',
-//   },
-// };
+const customerFields = [
+  {
+    name: 'email',
+    type: 'input',
+    label: 'E-mail',
+  },
+  {
+    name: 'password',
+    type: 'input',
+    label: 'Password',
+  },
+  {
+    name: 'firstName',
+    type: 'input',
+    label: 'First Name',
+  },
+  {
+    name: 'lastName',
+    type: 'input',
+    label: 'Last Name',
+  },
+  {
+    name: 'dateOfBirth',
+    type: 'input',
+    label: 'Date of birth',
+  },
+];
 
-// function CustomerForm() {
-//   const { register } = useFormContext();
+function CustomerForm() {
+  const { register } = useFormContext();
 
-//   const fields = Object.entries((field) => {
-//     return <Input />;
-//   });
-//   return (
-//     <div>
-//       <label>
-//         E-mail
-//         <input {...register(customerFields.email.name)} type="text" />
-//       </label>
-//       <label>
-//         Password
-//         <input {...register(FormField.password)} type="text" />
-//       </label>
-//       <label>
-//         First Name
-//         <input {...register(FormField.firstName)} type="text" />
-//       </label>
-//       <label>
-//         Last Name
-//         <input {...register(FormField.lastName)} type="text" />
-//       </label>
-//       <label>
-//         Date of birth
-//         <input {...register(FormField.dateOfBirth)} type="text" />
-//       </label>
-//     </div>
-//   );
-// }
+  const fieldsElements = customerFields.map((field) => {
+    const { label, name } = field;
+    return <Input {...register} label={label} type="text" fieldName={name} key={label} />;
+  });
 
-// export default CustomerForm;
+  return <div className={classes.container}>{fieldsElements}</div>;
+}
+
+export default CustomerForm;

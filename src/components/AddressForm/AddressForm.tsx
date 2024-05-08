@@ -1,52 +1,69 @@
+import Select from 'components/Select/Select';
+import Input from 'components/Input/Input';
 import { useFormContext } from 'react-hook-form';
 
-const addressFields = {
-  street: {
+import classes from './AddressForm.module.scss';
+
+type Option = {
+  country: string;
+  countryCode: string;
+};
+
+type Field = {
+  name: string;
+  type: string;
+  label: string;
+  options?: Option[];
+};
+
+const addressFields: Field[] = [
+  {
     name: 'street',
-    type: 'input',
+    type: 'text',
+    label: 'Street',
   },
-  city: {
+  {
     name: 'city',
-    type: 'input',
+    type: 'text',
+    label: 'City',
   },
-  postalCode: {
+  {
     name: 'postalCode',
-    type: 'input',
+    type: 'text',
+    label: 'Postal code',
   },
-  country: {
+  {
     name: 'country',
     type: 'select',
+    label: 'Country',
     options: [
       { country: 'France', countryCode: 'FR' },
       { country: 'Germany', countryCode: 'DE' },
     ],
   },
-};
-export default function AddressForm() {
-  const methods = useFormContext();
-  // const countryOptions = COUNTRY.map((option) => {
-  //   const { country, countryCode } = option;
-  //   return <option value={countryCode}>{country}</option>;
-  // });
+];
+
+interface Props {
+  title: string;
+  checkbox: Field;
+}
+
+export default function AddressForm({ title, checkbox }: Props) {
+  const { register } = useFormContext();
+
+  const fieldsElements = addressFields.map((field) => {
+    const { label, name, options, type } = field;
+    if (options) {
+      return <Select {...register} label={label} fieldName={name} options={options} key={label} />;
+    }
+    return <Input {...register} label={label} type={type} fieldName={name} key={label} />;
+  });
 
   return (
-    <div className="shipping-address">
-      <label>
-        Street
-        <input {...methods.register(addressFields.street.name)} type="text" />
-      </label>
-      <label>
-        City
-        <input {...methods.register(addressFields.street.name)} type="text" />
-      </label>
-      <label>
-        Postal code
-        <input {...methods.register(addressFields.street.name)} type="text" />
-      </label>
-      {/* <label>
-        Country
-        <select {...methods.register(addressFields.street.name)}>{...countryOptions}</select>
-      </label> */}
+    <div className={classes.container}>
+      <h3>{title}</h3>
+      {fieldsElements}
+      <Input {...register} label={checkbox.label} type="checkbox" fieldName={checkbox.name} />
     </div>
   );
 }

@@ -1,0 +1,19 @@
+.container {
+  padding: 30px;
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+.form_container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.form_container>*:not(:last-child) {
+  margin-right: 20px;
+}
+
+.submit {
+  margin-top: 20px;
+}
