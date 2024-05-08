@@ -16,18 +16,15 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: [
-    'react-refresh',
-    'prettier',
-  ],
+  plugins: ['react-refresh', 'prettier'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react/react-in-jsx-scope': 0,
-        "prettier/prettier": [
-      "error",
+    'prettier/prettier': [
+      'error',
       {
-        "endOfLine": "auto"
-      }
+        endOfLine: 'auto',
+      },
     ],
     'jsx-a11y/label-has-associated-control': [
       'error',
@@ -45,5 +42,6 @@ module.exports = {
         },
       },
     ],
+    'react/jsx-props-no-spreading': 'off',
   },
 };
