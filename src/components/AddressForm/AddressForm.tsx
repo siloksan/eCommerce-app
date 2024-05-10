@@ -54,9 +54,12 @@ export default function AddressForm({ typeOfAddress, handleAddressChange }: Prop
     },
   };
 
+  // функция устанавливает какой из адрессов будет общим
+
   const handleChange = () => {
     handleAddressChange(typeOfAddress);
   };
+
   const fieldsElements = addressFields.map((field) => {
     const { label, name, options, type } = field;
     if (options) {

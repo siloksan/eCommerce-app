@@ -21,20 +21,12 @@ function Select({ label, fieldName, options }: Props) {
       </option>
     );
   });
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
+  const { register } = useFormContext();
 
   return (
     <label className={classes.container}>
       {label}
       <select {...register(fieldName)}>{optionsElement}</select>
-      {errors[fieldName] ? (
-        <span className={classes.error}>errors[fieldName].message</span>
-      ) : (
-        <span className={classes.error}>An error message will appear here</span>
-      )}
     </label>
   );
 }

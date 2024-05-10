@@ -38,7 +38,12 @@ function CustomerForm() {
     return <Input {...register} label={label} type={type} fieldName={name} key={label} />;
   });
 
-  return <div className={classes.container}>{fieldsElements}</div>;
+  return (
+    <div className={classes.container}>
+      <h3>General Information</h3>
+      {fieldsElements}
+    </div>
+  );
 }
 
 export default CustomerForm;
