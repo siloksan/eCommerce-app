@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import classes from './Input.module.scss';
 
 interface Props {
@@ -10,18 +11,14 @@ interface Props {
 function Input({ label, fieldName, type }: Props) {
   const {
     register,
-    // formState: { errors },
+    formState: { errors },
   } = useFormContext();
 
   return (
     <label className={classes.container}>
       {label}
       <input {...register(fieldName)} type={type} />
-      {/* {errors[fieldName] ? (
-        <span className={classes.error}>{errors[fieldName].message}</span>
-      ) : (
-        <span className={classes.error}>An error message will appear here</span>
-      )} */}
+      <ErrorMessage errors={errors} name={fieldName} render={({ message }) => <p>{message}</p>} />
     </label>
   );
 }
