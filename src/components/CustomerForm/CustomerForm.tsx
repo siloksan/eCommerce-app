@@ -5,12 +5,12 @@ import classes from './CustomerForm.module.scss';
 const customerFields = [
   {
     name: 'email',
-    type: 'input',
+    type: 'email',
     label: 'E-mail',
   },
   {
     name: 'password',
-    type: 'input',
+    type: 'password',
     label: 'Password',
   },
   {
@@ -25,7 +25,7 @@ const customerFields = [
   },
   {
     name: 'dateOfBirth',
-    type: 'input',
+    type: 'date',
     label: 'Date of birth',
   },
 ];
@@ -34,8 +34,8 @@ function CustomerForm() {
   const { register } = useFormContext();
 
   const fieldsElements = customerFields.map((field) => {
-    const { label, name } = field;
-    return <Input {...register} label={label} type="text" fieldName={name} key={label} />;
+    const { label, name, type } = field;
+    return <Input {...register} label={label} type={type} fieldName={name} key={label} />;
   });
 
   return <div className={classes.container}>{fieldsElements}</div>;
