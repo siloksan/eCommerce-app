@@ -1,10 +1,10 @@
-import Button from 'components/Button/Button';
+import LinkButton from 'components/LinkButton/LinkButton';
 
 function UserAuthenticationPanel() {
   return (
     <div>
-      <Button text="Log in" />
-      <Button text="Sign in" />
+      <LinkButton text="Log in" link="#" />
+      <LinkButton text="Sign in" link="#" />
     </div>
   );
 }
