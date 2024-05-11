@@ -22,10 +22,21 @@ button:hover {
   cursor: pointer;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Playfair Display", serif;
   color: var(--color-base-text);
   background-color: var(--color-base-bg);
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
