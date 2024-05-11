@@ -2,8 +2,8 @@ import { useFormContext } from 'react-hook-form';
 import classes from './Select.module.scss';
 
 type Option = {
-  country: string;
-  countryCode: string;
+  children: string;
+  value: string;
 };
 
 interface Props {
@@ -14,10 +14,10 @@ interface Props {
 
 function Select({ label, fieldName, options }: Props) {
   const optionsElement = options.map((option) => {
-    const { country, countryCode } = option;
+    const { children, value } = option;
     return (
-      <option value={countryCode} key={country}>
-        {country}
+      <option value={value} key={value}>
+        {children}
       </option>
     );
   });

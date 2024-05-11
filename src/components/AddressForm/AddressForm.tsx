@@ -25,8 +25,8 @@ const addressFields = [
     type: 'select',
     label: 'Country',
     options: [
-      { country: 'France', countryCode: 'FR' },
-      { country: 'Germany', countryCode: 'DE' },
+      { children: 'France', value: 'FR' },
+      { children: 'Germany', value: 'DE' },
     ],
   },
 ];
