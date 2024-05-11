@@ -23,6 +23,9 @@ button:hover {
 }
 
 body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Playfair Display", serif;
   color: var(--color-base-text);
   background-color: var(--color-base-bg);
 }
