@@ -18,7 +18,9 @@ export default defineConfig({
       app: '/src/app',
       pages: '/src/pages',
       layout: '/src/layout',
-      utils: '/src/utils'
+      utils: '/src/utils',
+      assets: '/src/assets',
+      styles: 'src/styles'
     },
   },
 });
