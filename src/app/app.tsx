@@ -1,11 +1,5 @@
-import RegistrationPage from 'pages/Registration/Registration';
-
 function App() {
-  return (
-    <div>
-      <RegistrationPage />
-    </div>
-  );
+  return <h1>eCommerce-App</h1>;
 }
 
 export default App;

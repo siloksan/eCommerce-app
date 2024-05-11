@@ -34,7 +34,7 @@ const defaultValues = {
 type FormData = typeof defaultValues;
 
 export default function RegistrationForm() {
-  const methods = useForm<FormData>({});
+  const methods = useForm<FormData>({ defaultValues });
 
   /* для отслеживания состояния какой из адрессов будет применён как общий для доставки и выставления счёта.
   если один из них false, то со значением true будет общий адресс.
