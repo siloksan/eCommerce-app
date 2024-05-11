@@ -21,3 +21,8 @@ video {
 button:hover {
   cursor: pointer;
 }
+
+body {
+  color: var(--color-base-text);
+  background-color: var(--color-base-bg);
+}
