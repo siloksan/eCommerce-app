@@ -1,35 +1,8 @@
 import Select from 'components/Select/Select';
 import Input from 'components/Input/Input';
-import { useFormContext } from 'react-hook-form';
 
 import classes from './AddressForm.module.scss';
-
-const addressFields = [
-  {
-    name: 'street',
-    type: 'text',
-    label: 'Street',
-  },
-  {
-    name: 'city',
-    type: 'text',
-    label: 'City',
-  },
-  {
-    name: 'postalCode',
-    type: 'text',
-    label: 'Postal code',
-  },
-  {
-    name: 'country',
-    type: 'select',
-    label: 'Country',
-    options: [
-      { children: 'France', value: 'FR' },
-      { children: 'Germany', value: 'DE' },
-    ],
-  },
-];
+import addressFields from './addressFields';
 
 interface Props {
   typeOfAddress: 'billing' | 'shipping';
@@ -37,8 +10,6 @@ interface Props {
 }
 
 export default function AddressForm({ typeOfAddress, handleAddressChange }: Props) {
-  const { register } = useFormContext();
-
   const fieldKey = `addresses.${typeOfAddress}.`;
 
   const schema = {
@@ -61,11 +32,21 @@ export default function AddressForm({ typeOfAddress, handleAddressChange }: Prop
   };
 
   const fieldsElements = addressFields.map((field) => {
-    const { label, name, options, type } = field;
+    const { label, name, options, type, validateOptions } = field;
     if (options) {
-      return <Select {...register} label={label} fieldName={`${fieldKey}${name}`} options={options} key={label} />;
+      return (
+        <Select
+          label={label}
+          fieldName={`${fieldKey}${name}`}
+          options={options}
+          key={label}
+          validateOptions={validateOptions}
+        />
+      );
     }
-    return <Input {...register} label={label} type={type} fieldName={`${fieldKey}${name}`} key={label} />;
+    return (
+      <Input label={label} type={type} fieldName={`${fieldKey}${name}`} key={label} validateOptions={validateOptions} />
+    );
   });
 
   return (
@@ -73,7 +54,6 @@ export default function AddressForm({ typeOfAddress, handleAddressChange }: Prop
       <h3>{schema[typeOfAddress].title}</h3>
       {fieldsElements}
       <Input
-        {...register}
         label={schema[typeOfAddress].checkboxLabel}
         type="checkbox"
         fieldName={`${fieldKey}${schema[typeOfAddress].checkboxName}`}
