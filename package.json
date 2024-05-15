@@ -16,6 +16,9 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@commercetools/platform-sdk": "^7.8.0",
+    "@commercetools/sdk-auth": "^4.0.1",
+    "@commercetools/sdk-client": "^3.0.0",
     "@hookform/error-message": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
