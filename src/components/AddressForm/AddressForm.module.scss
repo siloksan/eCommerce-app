@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.container > *:not(:last-child) {
+  margin-bottom: 16px;
+}

@@ -16,7 +16,6 @@ function LoginPage() {
   const [redirectToMain, setRedirectToMain] = useState(false);
 
   const onSubmit: SubmitHandler<FormValues> = () => {
-    // console.log('Login successful!', data);
     setRedirectToMain(true);
   };
 
@@ -31,12 +30,12 @@ function LoginPage() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.form}>
           <label htmlFor="email">Email:</label>
-          <input type="email" {...register('email', { required: true, pattern: /^\S+@\S+$/i })} />
+          <input type="email" {...register('email', { required: true, pattern: /^\S+@\S+$/i })} id="email" />
           {errors.email && <span>Email is required and must be valid</span>}
         </div>
         <div className={classes.form}>
-          <label htmlFor="email">Password:</label>
-          <input type="password" {...register('password', { required: true, minLength: 6 })} />
+          <label htmlFor="password">Password:</label>
+          <input type="password" {...register('password', { required: true, minLength: 6 })} id="password" />
           {errors.password && <span>Password is required and must be at least 6 characters</span>}
         </div>
         <button type="submit">Login</button>
