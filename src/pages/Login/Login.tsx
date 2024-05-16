@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import classes from './Login.module.scss';
+import LoginFormFields from '../../components/LoginForm/LoginForm';
 
 type FormValues = {
   email: string;
   password: string;
 };
 
-function LoginPage() {
+function LoginForm() {
   const {
     register,
     handleSubmit,
@@ -28,16 +29,7 @@ function LoginPage() {
     <div className={classes.container}>
       <h2>Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={classes.form}>
-          <label htmlFor="email">Email:</label>
-          <input type="email" {...register('email', { required: true, pattern: /^\S+@\S+$/i })} id="email" />
-          {errors.email && <span>Email is required and must be valid</span>}
-        </div>
-        <div className={classes.form}>
-          <label htmlFor="password">Password:</label>
-          <input type="password" {...register('password', { required: true, minLength: 6 })} id="password" />
-          {errors.password && <span>Password is required and must be at least 6 characters</span>}
-        </div>
+        <LoginFormFields register={register} errors={errors} />
         <button type="submit">Login</button>
       </form>
       <p>
@@ -47,4 +39,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginForm;
