@@ -31,7 +31,7 @@
       "pages/*": ["pages/*"],
       "layout/*": ["layout/*"],
       "utils/*": ["utils/*"],
-      "*.ts": ["./*"]
+      // "*.ts": ["./*"]
     }
   },
   "include": ["vite.config.ts" ,".eslintrc.cjs", "src"],

@@ -1,4 +1,5 @@
 import AddressForm from 'components/AddressForm/AddressForm';
+import client from 'api/client/client';
 import CustomerForm from 'components/CustomerForm/CustomerForm';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
@@ -60,7 +61,61 @@ export default function RegistrationForm() {
   };
 
   const { handleSubmit } = methods;
-  const onSubmit: SubmitHandler<FormData> = () => {};
+  const email = 'user34@example.com';
+  const password = 'password';
+  const onSubmit: SubmitHandler<FormData> = () => {
+    client.apiRoot
+      .me()
+      .signup()
+      .post({
+        body: {
+          email,
+          password,
+          firstName: 'John',
+          lastName: 'Doe',
+        },
+      })
+      .execute()
+      .then(() => {})
+      .catch(() => {});
+  };
+
+  function signIn() {
+    client.apiRoot = client.getApiRoot({ username: email, password });
+  }
+
+  function getUser() {
+    client.apiRoot
+      .me()
+      .get()
+      .execute()
+      .then((res) => {
+        JSON.stringify(res.body);
+      });
+    // .products()
+    // .get()
+    // .execute()
+    // .then((res) => {
+    //   JSON.stringify(res.body);
+    //   console.log('JSON.stringify(res.body): ', JSON.stringify(res.body));
+    // });
+  }
+
+  function logOut() {
+    client.tokenCache.clearToken();
+    client.apiRoot = client.getApiRoot();
+  }
+
+  function getProducts() {
+    client.apiRoot
+      .products()
+      .get()
+      .execute()
+      .then((res) => {
+        JSON.stringify(res.body);
+      });
+  }
+
   return (
     <div className={classes.container}>
       <h1>Registration details</h1>
@@ -74,6 +129,18 @@ export default function RegistrationForm() {
           <input type="submit" className={classes.submit} />
         </form>
       </FormProvider>
+      <button onClick={signIn} type="button">
+        Sign in
+      </button>
+      <button onClick={getUser} type="button">
+        Me
+      </button>
+      <button onClick={logOut} type="button">
+        log out
+      </button>
+      <button onClick={getProducts} type="button">
+        products
+      </button>
     </div>
   );
 }
