@@ -3,22 +3,27 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  define: {
+    global: {}
+  },
+  resolve: {
+    alias: {
+      'node-fetch': 'isomorphic-fetch',
+    },
+  },
+  plugins: [
+    react(),
+    tsconfigPaths({
+      parseNative: false,
+    }),
+  ],
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/setupTests.ts'],
-  },
-  resolve: {
-    alias: { 
-      components: '/src/components',
-      app: '/src/app',
-      pages: '/src/pages',
-      layout: '/src/layout',
-      utils: '/src/utils'
-    },
   },
 });
