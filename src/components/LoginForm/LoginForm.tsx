@@ -33,13 +33,12 @@ function LoginFormFields({ register, errors }: LoginFormFieldsProps) {
           {...register('email', {
             required: 'Email is required',
             pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'Invalid email address format',
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i,
+              message: 'Invalid email!',
             },
-            validate: {
-              hasAtSymbol: (value) => value.includes('@') || 'Email must contain "@" symbol',
-              noLeadingTrailingWhitespace: (value) =>
-                value.trim() === value || 'Email must not contain leading or trailing whitespace',
+            maxLength: {
+              value: 50,
+              message: 'The email must less than 50 characters long!',
             },
           })}
         />
@@ -61,14 +60,14 @@ function LoginFormFields({ register, errors }: LoginFormFieldsProps) {
                 value: 8,
                 message: 'Password must be at least 8 characters long',
               },
-              validate: {
-                hasUppercase: (value) => /[A-Z]/.test(value) || 'Password must contain at least one uppercase letter',
-                hasLowercase: (value) => /[a-z]/.test(value) || 'Password must contain at least one lowercase letter',
-                hasDigit: (value) => /\d/.test(value) || 'Password must contain at least one digit',
-                noLeadingTrailingWhitespace: (value) =>
-                  value.trim() === value || 'Password must not contain leading or trailing whitespace',
-                hasSpecialChar: (value) =>
-                  /[!@#$%^&*]/.test(value) || 'Password must contain at least one special character',
+              maxLength: {
+                value: 30,
+                message: 'The password must less than 30 characters long!',
+              },
+              pattern: {
+                value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,30}$/,
+                message:
+                  'The password must include at least one uppercase letter, one lowercase letter, and one number!',
               },
             })}
           />
