@@ -1,0 +1,31 @@
+@use 'styles/mixins.scss' as mixins;
+
+.button {
+  @include mixins.link-reset;
+  position: relative;
+  padding: 1ch 1.5ch;
+  display: inline-block;
+  text-align: center;
+  letter-spacing: 1.5px;
+  font-family: var(--font-family--serif);
+  font-size: 18px;
+  font-weight: 700;
+  transition: 0.3s;
+  &:hover {
+    box-shadow: 3px 3px 0px 0px var(--color-shade);
+    transform: translate(-3px, -3px);
+  }
+  &:active {
+    box-shadow: -3px -3px 0px 0px var(--color-light);
+    transform: translate(0, 0);
+  }
+
+  &Accent {
+    text-transform: uppercase;
+    font-family: var(--font-family--sans-serif);
+    font-size: 20px;
+    border: 2px solid var(--color-base-text);
+    border-radius: 30px;
+    background-color: var(--color-accent);
+  }
+}

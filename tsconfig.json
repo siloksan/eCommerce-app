@@ -31,6 +31,8 @@
       "pages/*": ["pages/*"],
       "layout/*": ["layout/*"],
       "utils/*": ["utils/*"],
+      "assets/*": ["assets/*"],
+      "styles/*": ["styles/*"],
       "*.ts": ["./*"]
     }
   },
