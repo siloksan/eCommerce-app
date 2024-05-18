@@ -72,7 +72,7 @@ function LoginFormFields({ register, errors }: LoginFormFieldsProps) {
               },
             })}
           />
-          <button onClick={togglePasswordVisibility} className={classes.togglePassword}>
+          <button type="button" onClick={togglePasswordVisibility} className={classes.togglePassword}>
             {showPassword ? <div className={classes.showPassword} /> : <div className={classes.hidePassword} />}
           </button>
         </div>
