@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import styles from './LinkButton.module.scss';
 
 interface LinkButtonProps {
@@ -9,15 +11,15 @@ interface LinkButtonProps {
 function LinkButton({ text, link, accent }: LinkButtonProps) {
   if (accent) {
     return (
-      <a className={`${styles.button} ${styles.buttonAccent}`} href={link}>
+      <Link to={link} className={`${styles.button} ${styles.buttonAccent}`}>
         {text}
-      </a>
+      </Link>
     );
   }
   return (
-    <a className={styles.button} href={link}>
+    <Link to={link} className={styles.button}>
       {text}
-    </a>
+    </Link>
   );
 }
 

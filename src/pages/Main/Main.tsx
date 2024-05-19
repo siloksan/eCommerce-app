@@ -1,5 +1,6 @@
 import Header from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
+import { Outlet } from 'react-router-dom';
 
 import styles from './Main.module.scss';
 
@@ -8,7 +9,7 @@ function Main() {
     <>
       <Header />
       <main className={styles.container}>
-        <h1>Content</h1>
+        <Outlet />
       </main>
       <Footer />
     </>
