@@ -1,12 +1,26 @@
-import { Link } from 'react-router-dom';
+import { Link, useRouteError, isRouteErrorResponse } from 'react-router-dom';
+
+import classes from './NotFound.module.scss';
 
 function NotFoundPage() {
+  const error = useRouteError();
+
+  if (!isRouteErrorResponse(error)) {
+    return null;
+  }
+
   return (
-    <>
-      <h1>404</h1>
-      <h2>Oops! The page was Not Found</h2>
-      <Link to="/">Go to the main page</Link>
-    </>
+    <div className={classes.container}>
+      <h1 className={classes.error__number}>{error.status}</h1>
+      <h2>{error.statusText}</h2>
+      <p>Oops! Something went wrong :(</p>
+      <p>
+        But don&apos;t fret! <br /> Let&apos;s start over
+        <Link to="/" className={classes.link}>
+          To the main page
+        </Link>
+      </p>
+    </div>
   );
 }
 
