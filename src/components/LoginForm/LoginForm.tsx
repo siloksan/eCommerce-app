@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import classes from './LoginForm.module.scss';
+import ShowPasswordButton from '../../components/ShowPassword/ShowPassword';
 
 interface FormValues {
   email: string;
@@ -16,7 +17,7 @@ function LoginFormFields({ register, errors }: LoginFormFieldsProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -71,9 +72,7 @@ function LoginFormFields({ register, errors }: LoginFormFieldsProps) {
               },
             })}
           />
-          <button type="button" onClick={togglePasswordVisibility} className={classes.togglePassword}>
-            {showPassword ? <div className={classes.showPassword} /> : <div className={classes.hidePassword} />}
-          </button>
+          <ShowPasswordButton showPassword={showPassword} togglePasswordVisibility={togglePasswordVisibility} />
         </div>
         {errors.password && <span className={classes.error}>{errors.password.message}</span>}
       </div>
