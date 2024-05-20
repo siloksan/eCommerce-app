@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import classes from './LoginForm.module.scss';
-import ShowPasswordButton from '../../components/ShowPassword/ShowPassword';
+import ShowPasswordButton from '../ShowPassword/ShowPassword';
 
 interface FormValues {
   email: string;

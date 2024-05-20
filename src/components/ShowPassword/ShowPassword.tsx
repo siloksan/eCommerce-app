@@ -17,6 +17,6 @@ function ShowPasswordButton({ showPassword, togglePasswordVisibility }: ShowPass
       />
     </button>
   );
-};
+}
 
 export default ShowPasswordButton;
