@@ -1,18 +1,15 @@
-import Header from 'components/Header/Header';
-import Footer from 'components/Footer/Footer';
-import { Outlet } from 'react-router-dom';
-
-import styles from './Main.module.scss';
+import { Link } from 'react-router-dom';
 
 function Main() {
   return (
-    <>
-      <Header />
-      <main className={styles.container}>
-        <Outlet />
-      </main>
-      <Footer />
-    </>
+    <ul>
+      <li>
+        <Link to="login">Login Page</Link>
+      </li>
+      <li>
+        <Link to="register">Registration Page</Link>
+      </li>
+    </ul>
   );
 }
 

@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import Layout from 'layout/Layout';
 import Main from 'pages/Main/Main';
 import LoginForm from 'pages/Login/Login';
 import RegistrationPage from 'pages/Registration/Registration';
 import NotFoundPage from 'pages/NotFound/NotFound';
+
 import './styles/index.scss';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Main />,
+    element: <Layout />,
     errorElement: <NotFoundPage />,
     children: [
+      { index: true, element: <Main /> },
       {
         path: 'login',
         element: <LoginForm />,
