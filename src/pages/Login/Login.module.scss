@@ -50,11 +50,12 @@ p {
   color: #666;
 }
 
-a {
+.registerLink {
+  cursor: pointer;
   color: #4caf50;
   text-decoration: none;
 }
 
-a:hover {
+.registerLink:hover {
   text-decoration: underline;
 }
