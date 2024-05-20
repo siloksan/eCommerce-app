@@ -13,6 +13,7 @@
   border-radius: 30px;
   background-color: var(--color-accent);
   font-weight: 700;
+  font-family: var(--font-family--sans-serif);
 }
 
 @mixin button($font-size: 18px, $accent: false) {
