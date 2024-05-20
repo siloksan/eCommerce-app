@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import classes from './Login.module.scss';
 import LoginFormFields from '../../components/LoginForm/LoginForm';
@@ -10,7 +10,6 @@ type FormValues = {
 };
 
 function LoginForm() {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -38,9 +37,9 @@ function LoginForm() {
       </form>
       <p>
         Don&apos;t have an account?{' '}
-        <button type="button" className={classes.registerLink} onClick={() => navigate('/register')}>
+        <Link to="/register" className={classes.registerLink}>
           Register
-        </button>
+        </Link>
       </p>
     </div>
   );
