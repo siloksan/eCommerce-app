@@ -30,7 +30,9 @@ function LoginForm() {
       <h2>Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <LoginFormFields register={register} errors={errors} />
-        <button type="submit">Login</button>
+        <button type="submit" className={classes.submitBtn}>
+          Login
+        </button>
       </form>
       <p>
         Don&apos;t have an account?{' '}

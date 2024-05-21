@@ -1,3 +1,12 @@
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -20,11 +29,11 @@ form {
   width: 100%;
 }
 
-button {
+.submitBtn {
   width: 100%;
   padding: 10px 20px;
   margin-top: 20px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 5px;
@@ -32,7 +41,7 @@ button {
   font-size: 16px;
 }
 
-button:hover {
+.submitBtn:hover {
   background-color: #45a049;
 }
 
