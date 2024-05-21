@@ -1,0 +1,40 @@
+@mixin link-reset {
+  color: currentColor;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@mixin button--accent($font-size: 20px) {
+  text-transform: uppercase;
+  font-size: $font-size;
+  border: 2px solid var(--color-base-text);
+  border-radius: 30px;
+  background-color: var(--color-accent);
+  font-weight: 700;
+  font-family: var(--font-family--sans-serif);
+}
+
+@mixin button($font-size: 18px, $accent: false) {
+  padding: 1ch 1.5ch;
+  text-align: center;
+  letter-spacing: 1.5px;
+  font-family: var(--font-family--serif);
+  font-size: $font-size;
+  font-weight: 700;
+  color: var(--color-base-text);
+  transition: 0.3s;
+  &:hover {
+    box-shadow: 3px 3px 0px 0px var(--color-shade);
+    transform: translate(-3px, -3px);
+  }
+  &:active {
+    box-shadow: -3px -3px 0px 0px var(--color-light);
+    transform: translate(0, 0);
+  }
+
+  @if $accent {
+    @include button--accent;
+  }
+}

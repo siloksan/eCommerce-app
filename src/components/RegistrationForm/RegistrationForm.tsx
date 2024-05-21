@@ -32,9 +32,9 @@ const defaultValues = {
   },
 };
 
-type FormData = typeof defaultValues;
+export type FormData = typeof defaultValues;
 
-export default function RegistrationForm() {
+function RegistrationForm() {
   const methods = useForm<FormData>({ defaultValues });
 
   /* для отслеживания состояния какой из адрессов будет применён как общий для доставки и выставления счёта.
@@ -144,3 +144,5 @@ export default function RegistrationForm() {
     </div>
   );
 }
+
+export default RegistrationForm;
