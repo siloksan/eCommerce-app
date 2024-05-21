@@ -1,16 +1,17 @@
-import Header from 'components/Header/Header';
-import Footer from 'components/Footer/Footer';
-
-import styles from './Main.module.scss';
+import { Link } from 'react-router-dom';
 
 function Main() {
   return (
     <>
-      <Header />
-      <main className={styles.container}>
-        <h1>Content</h1>
-      </main>
-      <Footer />
+      <h2>Links and routes to the pages:</h2>
+      <ul>
+        <li>
+          <Link to="login">Login Page</Link> - /login
+        </li>
+        <li>
+          <Link to="register">Registration Page</Link> - /register
+        </li>
+      </ul>
     </>
   );
 }

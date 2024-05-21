@@ -1,0 +1,20 @@
+@use 'src/styles/mixins.scss' as *;
+
+.container {
+  margin: auto;
+  text-align: center;
+}
+
+.error {
+  &__number {
+    font-size: 65px;
+    color: var(--color-accent);
+  }
+}
+
+.link {
+  display: block;
+  margin: 10px 0;
+  @include link-reset;
+  @include button(16px, true);
+}

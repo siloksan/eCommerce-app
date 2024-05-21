@@ -1,10 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import Layout from 'layout/Layout';
+import Main from 'pages/Main/Main';
+import LoginForm from 'pages/Login/Login';
+import RegistrationPage from 'pages/Registration/Registration';
+import NotFoundPage from 'pages/NotFound/NotFound';
+
 import './styles/index.scss';
-import App from 'app/app';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    errorElement: <NotFoundPage />,
+    children: [
+      { index: true, element: <Main /> },
+      {
+        path: 'login',
+        element: <LoginForm />,
+      },
+      {
+        path: 'register',
+        element: <RegistrationPage />,
+      },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
