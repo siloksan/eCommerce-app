@@ -1,6 +1,5 @@
-import Select from 'components/Select/Select';
-import Input from 'components/Input/Input';
-
+import Select from 'shared/Select/Select';
+import Input from 'shared/Input/Input';
 import classes from './AddressForm.module.scss';
 import addressFields from './addressFields';
 

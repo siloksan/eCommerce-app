@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.input_container {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.error {
+  margin-top: 5px;
+  color: red;
+  font-size: 12px;
+}
+.input_error {
+  border: 2px solid red;
+}

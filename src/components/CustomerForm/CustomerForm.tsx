@@ -1,4 +1,4 @@
-import Input from 'components/Input/Input';
+import Input from 'shared/Input/Input';
 import classes from './CustomerForm.module.scss';
 import customerFields from './customerFields';
 

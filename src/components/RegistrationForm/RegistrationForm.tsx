@@ -4,6 +4,7 @@ import CustomerForm from 'components/CustomerForm/CustomerForm';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useState } from 'react';
+import ButtonSubmit from 'shared/ButtonSubmit/ButtonSubmit';
 import classes from './RegistrationForm.module.scss';
 
 // определяю структуру для полей регистрациии
@@ -92,13 +93,6 @@ function RegistrationForm() {
       .then((res) => {
         JSON.stringify(res.body);
       });
-    // .products()
-    // .get()
-    // .execute()
-    // .then((res) => {
-    //   JSON.stringify(res.body);
-    //   console.log('JSON.stringify(res.body): ', JSON.stringify(res.body));
-    // });
   }
 
   function logOut() {
@@ -126,7 +120,7 @@ function RegistrationForm() {
             {address.shipping && <AddressForm typeOfAddress="shipping" handleAddressChange={handleAddressChange} />}
             {address.billing && <AddressForm typeOfAddress="billing" handleAddressChange={handleAddressChange} />}
           </div>
-          <input type="submit" className={classes.submit} />
+          <ButtonSubmit label="Submit" />
         </form>
       </FormProvider>
       <button onClick={signIn} type="button">
