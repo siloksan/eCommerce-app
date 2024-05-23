@@ -1,10 +1,10 @@
 import AddressForm from 'components/AddressForm/AddressForm';
-import client from 'api/client/client';
 import CustomerForm from 'components/CustomerForm/CustomerForm';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-
-import { useState } from 'react';
 import ButtonSubmit from 'shared/ButtonSubmit/ButtonSubmit';
+import { useState } from 'react';
+
+import CustomerService from 'api/services/CustomerService';
 import classes from './RegistrationForm.module.scss';
 
 // определяю структуру для полей регистрациии
@@ -47,6 +47,8 @@ function RegistrationForm() {
     billing: true,
   });
 
+  const customerService = new CustomerService();
+
   const handleAddressChange = (addressType: 'shipping' | 'billing'): void => {
     if (addressType === 'shipping') {
       setAddress({
@@ -62,59 +64,16 @@ function RegistrationForm() {
   };
 
   const { handleSubmit } = methods;
-  const email = 'user34@example.com';
-  const password = 'password';
-  const onSubmit: SubmitHandler<FormData> = () => {
-    client.apiRoot
-      .me()
-      .signup()
-      .post({
-        body: {
-          email,
-          password,
-          firstName: 'John',
-          lastName: 'Doe',
-        },
-      })
-      .execute()
-      .then(() => {})
-      .catch(() => {});
+
+  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+    customerService.signIn(data, address);
   };
 
-  function signIn() {
-    client.apiRoot = client.getApiRoot({ username: email, password });
-  }
-
-  function getUser() {
-    client.apiRoot
-      .me()
-      .get()
-      .execute()
-      .then((res) => {
-        JSON.stringify(res.body);
-      });
-  }
-
-  function logOut() {
-    client.tokenCache.clearToken();
-    client.apiRoot = client.getApiRoot();
-  }
-
-  function getProducts() {
-    client.apiRoot
-      .products()
-      .get()
-      .execute()
-      .then((res) => {
-        JSON.stringify(res.body);
-      });
-  }
-
   return (
-    <div className={classes.container}>
-      <h1>Registration details</h1>
+    <>
+      <h1 className={classes.title}>Registration details</h1>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
           <div className={classes.form_container}>
             <CustomerForm />
             {address.shipping && <AddressForm typeOfAddress="shipping" handleAddressChange={handleAddressChange} />}
@@ -123,19 +82,7 @@ function RegistrationForm() {
           <ButtonSubmit label="Submit" />
         </form>
       </FormProvider>
-      <button onClick={signIn} type="button">
-        Sign in
-      </button>
-      <button onClick={getUser} type="button">
-        Me
-      </button>
-      <button onClick={logOut} type="button">
-        log out
-      </button>
-      <button onClick={getProducts} type="button">
-        products
-      </button>
-    </div>
+    </>
   );
 }
 

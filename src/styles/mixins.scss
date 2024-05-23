@@ -38,3 +38,44 @@
     @include button--accent;
   }
 }
+
+@mixin form($max-width: 400px) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: var(--color-light);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px var(--color-shade);
+  max-width: $max-width;
+  margin: auto;
+}
+
+@mixin select($font-size: 18px) {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-family: var(--font-family--serif);
+  cursor: pointer;
+}
+
+@mixin media-laptop() {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin media-tablet() {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin media-mobile() {
+  @media (max-width: 380px) {
+    @content;
+  }
+}

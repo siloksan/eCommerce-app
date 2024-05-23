@@ -1,16 +1,24 @@
-.container {
-  padding: 30px;
-  border-radius: 10px;
-  border: 2px solid black;
+@use 'src/styles/mixins.scss' as *;
+
+.title {
+  margin-bottom: 20px;
+}
+
+.form {
+  & > *:last-child {
+    margin-top: 20px;
+  }
 }
 
 .form_container {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+  max-width: max-content;
+  & > * {
+    flex: 1 0 300px;
+    max-width: 100%;
+    margin: 6px;
+  }
 }
-
-.form_container > *:not(:last-child) {
-  margin-right: 20px;
-}
-

@@ -17,7 +17,7 @@ function PasswordInput({ validateOptions = {} }: Props) {
   return (
     <Input
       label="Password"
-      type="password"
+      type={showPassword ? 'text' : 'password'}
       fieldName="password"
       validateOptions={validateOptions}
       autoComplete="current-password"
