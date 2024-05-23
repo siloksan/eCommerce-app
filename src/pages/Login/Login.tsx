@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import ButtonSubmit from 'shared/ButtonSubmit/ButtonSubmit';
 import LoginFormFields from 'components/LoginForm/LoginForm';
+import customerService from 'api/services/CustomerService';
 
+import { useNavigate } from 'react-router-dom';
 import classes from './Login.module.scss';
 
 type FormValues = {
@@ -13,15 +15,21 @@ type FormValues = {
 function LoginForm() {
   const methods = useForm<FormValues>();
 
+  const navigate = useNavigate();
+
   const { handleSubmit } = methods;
   const [redirectToMain, setRedirectToMain] = useState(false);
 
-  const onSubmit: SubmitHandler<FormValues> = () => {
-    setRedirectToMain(true);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const isAuthorized = await customerService.signIn({ username: data.email, password: data.password });
+    if (isAuthorized) {
+      setRedirectToMain(true);
+      navigate('/');
+    }
   };
 
   if (redirectToMain) {
-    window.location.href = '/main';
+    navigate('/');
     return null;
   }
 

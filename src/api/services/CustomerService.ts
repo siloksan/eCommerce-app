@@ -1,7 +1,8 @@
 import client, { Client } from 'api/client/client';
 import { FormData } from 'components/RegistrationForm/RegistrationForm';
 import { toast } from 'react-toastify';
-import { CustomerDraft, SerializedAddress } from 'types/interfaces';
+import { CustomerDraft, SerializedAddress, UserAuthData } from 'types/interfaces';
+import UserStatus from 'types/types';
 
 interface SelectedAddress {
   shipping: boolean;
@@ -13,32 +14,60 @@ interface Address {
   city: string;
   postalCode: string;
   country: string;
-  defaultShippingAddress?: string;
-  defaultBillingAddress?: string;
+  defaultShippingAddress?: boolean;
+  defaultBillingAddress?: boolean;
 }
 
 class CustomerService {
   client: Client = client;
 
-  public async signIn(data: FormData, selectedAddress: SelectedAddress) {
-    const { email } = data;
+  public async signIn(userAuthData: UserAuthData) {
+    client.apiRoot = client.getApiRoot(userAuthData);
+    const response = await client.apiRoot
+      .me()
+      .get()
+      .execute()
+      .then((res) => {
+        if (res.statusCode === 200) {
+          const firstName = JSON.stringify(res.body.firstName);
+          toast(`Welcome to the Coffee Lovers ${firstName}`);
+          client.storageController.setUserStatus(UserStatus.registered);
+          return true;
+        }
+        return false;
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+    return response;
+  }
+
+  public async signUp(data: FormData, selectedAddress: SelectedAddress) {
+    const { email, password } = data;
     const unregistered = await this.emailCheck(email);
+    let response;
     if (unregistered) {
       const customerDraft = this.getCustomerDraft(data, selectedAddress);
-      client.apiRoot
+      response = await client.apiRoot
         .me()
         .signup()
         .post({
           body: customerDraft,
         })
         .execute()
-        .then(() => {
-          toast.success('You are registered!');
+        .then((res) => {
+          if (res.statusCode === 201) {
+            toast.success('You have successfully registered!');
+            this.signIn({ username: email, password });
+            return true;
+          }
+          return false;
         })
         .catch((err) => {
           toast.error(err.message);
         });
     }
+    return response;
   }
 
   private async emailCheck(email: string): Promise<boolean | void> {
@@ -97,4 +126,4 @@ class CustomerService {
   }
 }
 
-export default CustomerService;
+export default new CustomerService();

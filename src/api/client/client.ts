@@ -6,9 +6,10 @@ import {
   RefreshAuthMiddlewareOptions,
 } from '@commercetools/sdk-client-v2';
 import { ByProjectKeyRequestBuilder, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import CustomTokenCache from 'utils/helper/tokenCache';
+import CustomTokenCache from 'utils/helpers/tokenCache';
 import { UserAuthData } from 'types/interfaces';
-import StorageController from 'utils/helper/localStorage';
+import StorageController from 'utils/helpers/localStorage';
+import UserStatus from 'types/types';
 
 class Client {
   private projectKey: string = import.meta.env.VITE_CTP_PROJECT_KEY;
@@ -23,7 +24,7 @@ class Client {
 
   public apiRoot: ByProjectKeyRequestBuilder;
 
-  private storageController = new StorageController();
+  public storageController = new StorageController();
 
   public tokenCache = new CustomTokenCache();
 
@@ -78,14 +79,12 @@ class Client {
   private getAnonymousFlowClient() {
     const options = this.getAuthMiddlewareOptions();
     const httpMiddlewareOptions = this.getHttpMiddlewareOptions();
-    this.storageController.setAnonymous();
     return new ClientBuilder().withAnonymousSessionFlow(options).withHttpMiddleware(httpMiddlewareOptions).build();
   }
 
   private getPasswordFlowClient(userAuthData: UserAuthData) {
     const options = this.getPasswordAuthMiddlewareOptions(userAuthData);
     const httpMiddlewareOptions = this.getHttpMiddlewareOptions();
-    this.storageController.removeAnonymous();
     return new ClientBuilder().withPasswordFlow(options).withHttpMiddleware(httpMiddlewareOptions).build();
   }
 
@@ -102,7 +101,7 @@ class Client {
         projectKey: this.projectKey,
       });
     }
-    if (!this.storageController.anonymous && refreshToken) {
+    if (this.storageController.userStatus === UserStatus.registered && refreshToken) {
       return createApiBuilderFromCtpClient(this.getRefreshFlowClient(refreshToken)).withProjectKey({
         projectKey: this.projectKey,
       });
