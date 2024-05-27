@@ -1,0 +1,11 @@
+@use 'src/styles/mixins.scss' as *;
+
+.button {
+  @include link-reset;
+  @include button;
+  position: relative;
+  display: inline-block;
+  &Accent {
+    @include button--accent;
+  }
+}

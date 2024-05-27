@@ -1,6 +1,7 @@
-import Select from 'components/Select/Select';
-import Input from 'components/Input/Input';
-
+import Select from 'shared/Select/Select';
+import Input from 'shared/Input/Input';
+import Checkbox from 'shared/CheckBox/Checkbox';
+import { useFormContext } from 'react-hook-form';
 import classes from './AddressForm.module.scss';
 import addressFields from './addressFields';
 
@@ -11,6 +12,8 @@ interface Props {
 
 export default function AddressForm({ typeOfAddress, handleAddressChange }: Props) {
   const fieldKey = `addresses.${typeOfAddress}.`;
+
+  const { register } = useFormContext();
 
   const schema = {
     shipping: {
@@ -53,15 +56,12 @@ export default function AddressForm({ typeOfAddress, handleAddressChange }: Prop
     <div className={classes.container}>
       <h3>{schema[typeOfAddress].title}</h3>
       {fieldsElements}
-      <Input
+      <Checkbox
         label={schema[typeOfAddress].checkboxLabel}
-        type="checkbox"
+        register={register}
         fieldName={`${fieldKey}${schema[typeOfAddress].checkboxName}`}
       />
-      <label>
-        Set the same billing and shipping address
-        <input type="checkbox" onChange={handleChange} />
-      </label>
+      <Checkbox label="Set the same billing and shipping address" handleChange={handleChange} />
     </div>
   );
 }

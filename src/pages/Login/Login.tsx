@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
+import ButtonSubmit from 'shared/ButtonSubmit/ButtonSubmit';
+import LoginFormFields from 'components/LoginForm/LoginForm';
+import customerService from 'api/services/CustomerService';
+
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './Login.module.scss';
-import LoginFormFields from '../../components/LoginForm/LoginForm';
 
 type FormValues = {
   email: string;
@@ -10,31 +13,35 @@ type FormValues = {
 };
 
 function LoginForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>();
+  const methods = useForm<FormValues>();
+
+  const navigate = useNavigate();
+
+  const { handleSubmit } = methods;
   const [redirectToMain, setRedirectToMain] = useState(false);
 
-  const onSubmit: SubmitHandler<FormValues> = () => {
-    setRedirectToMain(true);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const isAuthorized = await customerService.signIn({ username: data.email, password: data.password });
+    if (isAuthorized) {
+      setRedirectToMain(true);
+      navigate('/');
+    }
   };
 
   if (redirectToMain) {
-    window.location.href = '/main';
+    navigate('/');
     return null;
   }
 
   return (
     <div className={classes.container}>
       <h2>Login</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <LoginFormFields register={register} errors={errors} />
-        <button type="submit" className={classes.submitBtn}>
-          Login
-        </button>
-      </form>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <LoginFormFields />
+          <ButtonSubmit label="Login" />
+        </form>
+      </FormProvider>
       <p>
         Don&apos;t have an account?{' '}
         <Link to="/register" className={classes.registerLink}>
