@@ -2,10 +2,13 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -13,29 +16,49 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
     /* Vitests */
-    "types": ["@types/react-dom"],
-    
+    "types": [
+      "@types/react-dom"
+    ],
     /* Paths */
     "baseUrl": "src",
     "paths": {
-      "components/*": ["components/*"],
-      "app/*": ["app/*"],
-      "pages/*": ["pages/*"],
-      "layout/*": ["layout/*"],
-      "utils/*": ["utils/*"],
-      "assets/*": ["assets/*"],
-      "styles/*": ["styles/*"],
-      "*.ts": ["./*"]
+      "components/*": [
+        "components/*"
+      ],
+      "app/*": [
+        "app/*"
+      ],
+      "pages/*": [
+        "pages/*"
+      ],
+      "layout/*": [
+        "layout/*"
+      ],
+      "utils/*": [
+        "utils/*"
+      ],
+      "assets/*": [
+        "assets/*"
+      ],
+      "styles/*": [
+        "styles/*"
+      ],
     }
   },
-  "include": ["vite.config.ts" ,".eslintrc.cjs", "src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "vite.config.ts",
+    ".eslintrc.cjs",
+    "src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

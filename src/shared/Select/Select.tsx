@@ -31,15 +31,19 @@ function Select({ label, fieldName, options, validateOptions = {} }: Props) {
   });
 
   return (
-    <label className={styles.container}>
-      {label}
-      <select {...register(fieldName, validateOptions)}>{optionsElement}</select>
-      <ErrorMessage
-        errors={errors}
-        name={fieldName}
-        render={({ message }) => <p className={styles.error}>{message}</p>}
-      />
-    </label>
+    <div className={styles.field}>
+      <label className={styles.label}>
+        {label}
+        <select {...register(fieldName, validateOptions)} className={styles.select}>
+          {optionsElement}
+        </select>
+        <ErrorMessage
+          errors={errors}
+          name={fieldName}
+          render={({ message }) => <p className={styles.error}>{message}</p>}
+        />
+      </label>
+    </div>
   );
 }
 
