@@ -4,7 +4,7 @@ import ButtonSubmit from 'shared/ButtonSubmit/ButtonSubmit';
 import LoginFormFields from 'components/LoginForm/LoginForm';
 import customerService from 'api/services/CustomerService';
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './Login.module.scss';
 
 type FormValues = {
@@ -44,9 +44,9 @@ function LoginForm() {
       </FormProvider>
       <p>
         Don&apos;t have an account?{' '}
-        <a className={classes.link} href="/register">
+        <Link to="/register" className={classes.registerLink}>
           Register
-        </a>
+        </Link>
       </p>
     </div>
   );
