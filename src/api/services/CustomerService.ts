@@ -1,4 +1,4 @@
-import client, { Client } from 'api/client/client';
+import Client, { client } from 'api/client/client';
 import { FormData } from 'components/RegistrationForm/RegistrationForm';
 import { toast } from 'react-toastify';
 import { CustomerDraft, SerializedAddress, UserAuthData } from 'types/interfaces';
@@ -22,7 +22,12 @@ class CustomerService {
   client: Client = client;
 
   public async signIn(userAuthData: UserAuthData) {
-    client.apiRoot = client.getApiRoot(userAuthData);
+    const isAuthorized = this.client.storageController.getUserStatus();
+    if (isAuthorized === UserStatus.registered) {
+      toast.error("You've already authorized!");
+      return;
+    }
+    this.client.apiRoot = this.client.getApiRoot(userAuthData);
     const response = await client.apiRoot
       .me()
       .get()
@@ -43,12 +48,17 @@ class CustomerService {
   }
 
   public async signUp(data: FormData, selectedAddress: SelectedAddress) {
+    const isAuthorized = this.client.storageController.getUserStatus();
+    if (isAuthorized === UserStatus.registered) {
+      toast.error("You've already registered!");
+      return;
+    }
     const { email, password } = data;
     const unregistered = await this.emailCheck(email);
     let response;
     if (unregistered) {
       const customerDraft = this.getCustomerDraft(data, selectedAddress);
-      response = await client.apiRoot
+      response = await this.client.apiRoot
         .me()
         .signup()
         .post({
@@ -126,4 +136,8 @@ class CustomerService {
   }
 }
 
-export default new CustomerService();
+const customerService = new CustomerService();
+
+export { customerService };
+
+export default CustomerService;

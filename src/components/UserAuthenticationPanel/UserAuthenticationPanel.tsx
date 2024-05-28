@@ -6,6 +6,7 @@ function UserAuthenticationPanel() {
     <div className={styles.panel}>
       <LinkButton text="Log in" link="login" accent={false} />
       <LinkButton text="Sign in" link="register" accent />
+      <LinkButton text="Log out" link="login" accent />
     </div>
   );
 }

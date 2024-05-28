@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
-import ButtonSubmit from 'shared/ButtonSubmit/ButtonSubmit';
+import Button from 'shared/Button/Button';
 import LoginFormFields from 'components/LoginForm/LoginForm';
-import customerService from 'api/services/CustomerService';
+import useApiContext from 'context/context';
 
 import { Link, useNavigate } from 'react-router-dom';
 import classes from './Login.module.scss';
@@ -14,6 +14,8 @@ type FormValues = {
 
 function LoginForm() {
   const methods = useForm<FormValues>();
+
+  const { customerService } = useApiContext();
 
   const navigate = useNavigate();
 
@@ -39,7 +41,7 @@ function LoginForm() {
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <LoginFormFields />
-          <ButtonSubmit label="Login" />
+          <Button label="Login" />
         </form>
       </FormProvider>
       <p>

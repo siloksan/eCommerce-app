@@ -11,6 +11,9 @@ import NotFoundPage from 'pages/NotFound/NotFound';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/index.scss';
+import { ApiContext } from 'context/context';
+import { client } from 'api/client/client';
+import { customerService } from 'api/services/CustomerService';
 
 const router = createBrowserRouter([
   {
@@ -32,8 +35,10 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-    <ToastContainer />
-  </React.StrictMode>
+  <ApiContext.Provider value={{ client, customerService }}>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </React.StrictMode>
+  </ApiContext.Provider>
 );

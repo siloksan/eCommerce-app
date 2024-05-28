@@ -112,6 +112,6 @@ class Client {
 
 const client = new Client();
 
-export { Client };
+export { client };
 
-export default client;
+export default Client;
