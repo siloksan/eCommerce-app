@@ -41,7 +41,7 @@ function LoginForm() {
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <LoginFormFields />
-          <Button label="Login" />
+          <Button label="Login" type="submit" />
         </form>
       </FormProvider>
       <p>

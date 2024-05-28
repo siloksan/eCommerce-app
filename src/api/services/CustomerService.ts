@@ -25,7 +25,7 @@ class CustomerService {
     const isAuthorized = this.client.storageController.getUserStatus();
     if (isAuthorized === UserStatus.registered) {
       toast.error("You've already authorized!");
-      return;
+      return false;
     }
     this.client.apiRoot = this.client.getApiRoot(userAuthData);
     const response = await client.apiRoot
@@ -51,7 +51,7 @@ class CustomerService {
     const isAuthorized = this.client.storageController.getUserStatus();
     if (isAuthorized === UserStatus.registered) {
       toast.error("You've already registered!");
-      return;
+      return false;
     }
     const { email, password } = data;
     const unregistered = await this.emailCheck(email);
@@ -78,6 +78,16 @@ class CustomerService {
         });
     }
     return response;
+  }
+
+  public logOut() {
+    const isAuthorized = this.client.storageController.getUserStatus();
+    if (isAuthorized === UserStatus.registered) {
+      this.client.storageController.removeUserStatus();
+      this.client.tokenCache.clearToken();
+      this.client.apiRoot = this.client.getApiRoot();
+      toast.success('Goodbye!');
+    }
   }
 
   private async emailCheck(email: string): Promise<boolean | void> {
