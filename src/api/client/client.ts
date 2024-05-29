@@ -108,10 +108,14 @@ class Client {
     }
     return createApiBuilderFromCtpClient(this.getAnonymousFlowClient()).withProjectKey({ projectKey: this.projectKey });
   }
+
+  public setApiRoot(userAuthData?: UserAuthData): void {
+    this.apiRoot = this.getApiRoot(userAuthData);
+  }
 }
 
 const client = new Client();
 
-export { Client };
+export { client };
 
-export default client;
+export default Client;
