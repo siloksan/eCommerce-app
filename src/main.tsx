@@ -8,6 +8,7 @@ import Main from 'pages/Main/Main';
 import LoginForm from 'pages/Login/Login';
 import RegistrationPage from 'pages/Registration/Registration';
 import NotFoundPage from 'pages/NotFound/NotFound';
+import UserProfile from 'pages/UserProfile/UserProfile';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/index.scss';
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <RegistrationPage />,
+      },
+      {
+        path: 'user-profile',
+        element: <UserProfile />,
       },
     ],
   },
