@@ -27,7 +27,7 @@ class CustomerService {
       toast.error("You've already authorized!");
       return false;
     }
-    this.client.apiRoot = this.client.getApiRoot(userAuthData);
+    this.client.setApiRoot(userAuthData);
     const response = await client.apiRoot
       .me()
       .get()
@@ -85,7 +85,7 @@ class CustomerService {
     if (isAuthorized === UserStatus.registered) {
       this.client.storageController.removeUserStatus();
       this.client.tokenCache.clearToken();
-      this.client.apiRoot = this.client.getApiRoot();
+      this.client.setApiRoot();
       toast.success('Goodbye!');
     }
   }
