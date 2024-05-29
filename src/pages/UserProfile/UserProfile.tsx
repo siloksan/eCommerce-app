@@ -30,8 +30,8 @@ export default function UserProfile() {
       </section>
       <section className={classes.addresses}>
         <h3>Addresses</h3>
-        {user.addresses.map((address, index) => (
-          <div key={index} className={classes.address}>
+        {user.addresses.map((address) => (
+          <div className={classes.address}>
             <p>{address.street}</p>
             <p>
               {address.city}, {address.state} {address.zipCode}
