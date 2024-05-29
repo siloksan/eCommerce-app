@@ -11,6 +11,9 @@ function Main() {
         <li>
           <Link to="register">Registration Page</Link> - /register
         </li>
+        <li>
+          <Link to="catalog">Catalog</Link> - /catalog
+        </li>
       </ul>
     </>
   );
