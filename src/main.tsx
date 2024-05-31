@@ -15,6 +15,7 @@ import ProductPage from 'pages/Product/Product';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/index.scss';
+import { productService } from 'api/services/ProductService';
 
 const router = createBrowserRouter([
   {
@@ -33,13 +34,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'product',
-        element: <ProductPage />,
+        element: <ProductPage productKey="lavazza-crema-aroma" />,
       },
     ],
   },
 ]);
 
-const data = { client, customerService };
+const data = { client, customerService, productService };
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ApiContext.Provider value={data}>
