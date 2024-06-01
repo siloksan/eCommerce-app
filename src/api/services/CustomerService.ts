@@ -1,7 +1,7 @@
-import Client, { client } from 'api/client/client';
+import { type Client, client } from 'api/client/client';
 import { FormData } from 'components/RegistrationForm/RegistrationForm';
 import { toast } from 'react-toastify';
-import { CustomerDraft, SerializedAddress, UserAuthData } from 'types/interfaces';
+import { CustomerDraft, SerializedAddress, UserAuthData } from 'types/customer-interfaces';
 import UserStatus from 'types/types';
 
 interface SelectedAddress {
@@ -150,4 +150,4 @@ const customerService = new CustomerService();
 
 export { customerService };
 
-export default CustomerService;
+export type { CustomerService };

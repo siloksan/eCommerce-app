@@ -3,18 +3,20 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import { client } from 'api/client/client';
+import { customerService } from 'api/services/CustomerService';
+import { ApiContext } from 'context/context';
 import Layout from 'layout/Layout';
 import Main from 'pages/Main/Main';
 import LoginForm from 'pages/Login/Login';
 import RegistrationPage from 'pages/Registration/Registration';
 import NotFoundPage from 'pages/NotFound/NotFound';
+import ProductPage from 'pages/Product/Product';
 import UserProfile from 'pages/UserProfile/UserProfile';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/index.scss';
-import { ApiContext } from 'context/context';
-import { client } from 'api/client/client';
-import { customerService } from 'api/services/CustomerService';
+import { productService } from 'api/services/ProductService';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
         element: <RegistrationPage />,
       },
       {
+        path: 'product',
+        element: <ProductPage productKey="lavazza-crema-aroma" />,
+      },
+      {
         path: 'user-profile',
         element: <UserProfile />,
       },
@@ -39,8 +45,10 @@ const router = createBrowserRouter([
   },
 ]);
 
+const data = { client, customerService, productService };
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <ApiContext.Provider value={{ client, customerService }}>
+  <ApiContext.Provider value={data}>
     <React.StrictMode>
       <RouterProvider router={router} />
       <ToastContainer />

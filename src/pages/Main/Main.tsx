@@ -14,6 +14,9 @@ function Main() {
         <li>
           <Link to="/user-profile">User Profile Page</Link> - /user-profile
         </li>
+        <li>
+          <Link to="product">Product</Link> - /product
+        </li>
       </ul>
     </>
   );
