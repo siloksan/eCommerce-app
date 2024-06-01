@@ -1,0 +1,14 @@
+.card {
+  &__price {
+    position: relative;
+    font-size: 30px;
+    display: inline-block;
+    &_old {
+      left: 110%;
+      position: absolute;
+      font-size: 20px;
+      color: var(--color-shade);
+      text-decoration: line-through;
+    }
+  }
+}

@@ -2,16 +2,13 @@
 
 .card {
   @include link-reset;
+  @include hover-shift(5px, var(--color-accent));
   display: block;
   max-width: 300px;
   padding: 10px;
   text-align: center;
   border: solid 2px var(--color-shade);
   transition: all 0.3s;
-  &:hover {
-    transform: scale(1.01);
-    border-color: var(--color-accent);
-  }
   &__imageContainer {
     max-width: 280px;
     max-height: 280px;
@@ -21,17 +18,5 @@
     font-family: var(--font-family--sans-serif);
     font-size: 24px;
     color: var(--color-accent);
-  }
-  &__price {
-    position: relative;
-    font-size: 30px;
-    display: inline-block;
-    &_old {
-      left: 110%;
-      position: absolute;
-      font-size: 20px;
-      color: var(--color-shade);
-      text-decoration: line-through;
-    }
   }
 }

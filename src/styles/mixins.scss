@@ -4,6 +4,19 @@
   &:hover {
     text-decoration: none;
   }
+  
+}
+
+@mixin hover-shift($shift-size: 3px, $shadow-color: var(--color-shade)) {
+  transition: 0.3s;
+  &:hover {
+    box-shadow: $shift-size $shift-size 0px 0px $shadow-color;
+    transform: translate(-($shift-size), -($shift-size));
+  }
+  &:active {
+    box-shadow: -($shift-size) -3px 0px 0px var(--color-light);
+    transform: translate(0, 0);
+  }
 }
 
 @mixin button--accent($font-size: 20px) {
@@ -24,15 +37,7 @@
   font-size: $font-size;
   font-weight: 700;
   color: var(--color-base-text);
-  transition: 0.3s;
-  &:hover {
-    box-shadow: 3px 3px 0px 0px var(--color-shade);
-    transform: translate(-3px, -3px);
-  }
-  &:active {
-    box-shadow: -3px -3px 0px 0px var(--color-light);
-    transform: translate(0, 0);
-  }
+  @include hover-shift();
 
   @if $accent {
     @include button--accent;
