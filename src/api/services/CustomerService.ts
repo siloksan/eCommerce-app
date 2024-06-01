@@ -125,6 +125,7 @@ class CustomerService {
       password: data.password,
       firstName: data.firstName,
       lastName: data.lastName,
+      dateOfBirth: data.dateOfBirth,
       addresses,
     };
 
@@ -143,6 +144,20 @@ class CustomerService {
     }
 
     return customerDraft;
+  }
+
+  async getUserData() {
+    const response = await this.client.apiRoot
+      .me()
+      .get()
+      .execute()
+      .then((res) => {
+        return res.body;
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+    return response;
   }
 }
 
