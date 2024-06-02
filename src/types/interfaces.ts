@@ -21,12 +21,13 @@ interface CustomerDraft {
 }
 
 export interface ProductCardProps {
-  id: string;
+  key: string;
   productName: string;
   currency: string;
   price: number;
   previousPrice?: number;
   imgLink?: string;
+  description?: string;
 }
 
 export type { UserAuthData, CustomerDraft, SerializedAddress };

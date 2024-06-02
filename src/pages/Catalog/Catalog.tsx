@@ -1,29 +1,17 @@
-import ProductCard from 'components/ProductCard/ProductCard';
+import ProductList from 'components/ProductList/ProductList';
 
-import { ProductCardProps } from 'types/interfaces';
-
-const cardInfo: ProductCardProps = {
-  id: '123',
-  productName: 'Product',
-  currency: 'USD',
-  price: 1000,
-  previousPrice: 1100,
-};
+import classes from './Catalog.module.scss';
 
 function Catalog() {
   return (
     <>
-      <h2>Catalog</h2>
+      <h2 className={classes.heading}>Catalog</h2>
       <div>
         <div>Filters container</div>
         <div>* Filter</div>
       </div>
       <div>Search bar</div>
-      <div>
-        Catalog list
-        <ProductCard {...cardInfo} />
-      </div>
-      <div>Pagination 1, 2, 3, .... </div>
+      <ProductList />
     </>
   );
 }

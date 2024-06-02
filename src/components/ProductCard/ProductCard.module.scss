@@ -10,9 +10,17 @@
   border: solid 2px var(--color-shade);
   transition: all 0.3s;
   &__imageContainer {
-    max-width: 280px;
-    max-height: 280px;
+    padding-bottom: 10px;
+    width: 280px;
+    height: 280px;
     margin: 0 auto;
+    overflow: hidden;
+    // border: solid 1px red;
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
   &__title {
     font-family: var(--font-family--sans-serif);
