@@ -1,7 +1,7 @@
-import Client, { client } from 'api/client/client';
+import { type Client, client } from 'api/client/client';
 import { FormData } from 'components/RegistrationForm/RegistrationForm';
 import { toast } from 'react-toastify';
-import { CustomerDraft, SerializedAddress, UserAuthData } from 'types/interfaces';
+import { CustomerDraft, SerializedAddress, UserAuthData } from 'types/customer-interfaces';
 import UserStatus from 'types/types';
 
 interface SelectedAddress {
@@ -125,6 +125,7 @@ class CustomerService {
       password: data.password,
       firstName: data.firstName,
       lastName: data.lastName,
+      dateOfBirth: data.dateOfBirth,
       addresses,
     };
 
@@ -144,10 +145,24 @@ class CustomerService {
 
     return customerDraft;
   }
+
+  async getUserData() {
+    const response = await this.client.apiRoot
+      .me()
+      .get()
+      .execute()
+      .then((res) => {
+        return res.body;
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+    return response;
+  }
 }
 
 const customerService = new CustomerService();
 
 export { customerService };
 
-export default CustomerService;
+export type { CustomerService };

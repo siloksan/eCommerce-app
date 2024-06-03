@@ -6,7 +6,7 @@ interface Props {
   handleClick?: () => void;
 }
 
-function ButtonSubmit({ label, type = 'button', handleClick }: Props) {
+function Button({ label, type = 'button', handleClick }: Props) {
   return (
     <button type={type} className={`${classes.button} ${classes.buttonAccent}`} onClick={handleClick}>
       {label}
@@ -14,4 +14,4 @@ function ButtonSubmit({ label, type = 'button', handleClick }: Props) {
   );
 }
 
-export default ButtonSubmit;
+export default Button;

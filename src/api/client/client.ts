@@ -7,7 +7,7 @@ import {
 } from '@commercetools/sdk-client-v2';
 import { ByProjectKeyRequestBuilder, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import CustomTokenCache from 'utils/helpers/tokenCache';
-import { UserAuthData } from 'types/interfaces';
+import { UserAuthData } from 'types/customer-interfaces';
 import StorageController from 'utils/helpers/localStorage';
 import UserStatus from 'types/types';
 
@@ -118,4 +118,4 @@ const client = new Client();
 
 export { client };
 
-export default Client;
+export type { Client };
