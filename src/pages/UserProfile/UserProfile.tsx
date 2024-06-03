@@ -11,16 +11,14 @@ export default function UserProfile() {
   const { customerService } = useApiContext();
 
   useEffect(() => {
-    setTimeout(() => {
-      async function fetchProduct() {
-        const result = await customerService.getUserData();
-        if (result) {
-          const serializeUserData = formatUserData(result);
-          setUser(serializeUserData);
-        }
+    async function fetchProduct() {
+      const result = await customerService.getUserData();
+      if (result) {
+        const serializeUserData = formatUserData(result);
+        setUser(serializeUserData);
       }
-      fetchProduct();
-    }, 3000000);
+    }
+    fetchProduct();
   }, [customerService]);
 
   if (!user) {
