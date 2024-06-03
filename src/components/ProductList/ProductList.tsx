@@ -1,34 +1,29 @@
-import { useEffect, useState } from 'react';
 import { ProductProjection } from '@commercetools/platform-sdk';
 
-import client from 'api/client/client';
 import ProductCard from 'components/ProductCard/ProductCard';
 
 import classes from './ProductList.module.scss';
 
-function ProductList() {
-  const [name, setName] = useState<ProductProjection[]>([]);
+interface ProductListProps {
+  products: ProductProjection[];
+}
 
-  useEffect(() => {
-    client.apiRoot
-      .productProjections()
-      .get({
-        queryArgs: {
-          limit: 6,
-        },
-      })
-      .execute()
-      .then((resp) => setName(resp.body.results));
-  }, [name]);
-
+function ProductList({ products }: ProductListProps) {
   return (
     <div className={classes.products}>
-      {name.map((product) => {
+      {products.map((product) => {
         const { masterVariant } = product;
         const img = masterVariant.images ? masterVariant.images[0].url : '';
-        const currencyCode = product.masterVariant.prices ? product.masterVariant.prices[0].value.currencyCode : 'EUR';
+
+        let currencyCode = 'EUR';
+        let price = 0;
+        if (product.masterVariant.prices) {
+          currencyCode =
+            product.masterVariant.prices.length > 0 ? product.masterVariant.prices[0].value.currencyCode : 'EUR';
+          price = product.masterVariant.prices.length > 0 ? product.masterVariant.prices[0].value.centAmount / 100 : 0;
+        }
+
         const description = product.description ? product.description['en-GB'] : ''; // TODO : make 'en-GB' a constant - default locale;
-        const price = product.masterVariant.prices ? product.masterVariant.prices[0].value.centAmount / 100 : 0;
 
         return (
           <ProductCard
