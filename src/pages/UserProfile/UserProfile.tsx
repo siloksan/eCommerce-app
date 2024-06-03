@@ -3,6 +3,7 @@ import useApiContext from 'context/context';
 import formatUserData from 'utils/helpers/formatUserData';
 import { UserData } from 'types/customer-interfaces';
 import classes from './UserProfile.module.scss';
+import CustomLoader from '../../shared/Loader/loader';
 
 export default function UserProfile() {
   const [user, setUser] = useState<UserData | null>(null);
@@ -10,18 +11,20 @@ export default function UserProfile() {
   const { customerService } = useApiContext();
 
   useEffect(() => {
-    async function fetchProduct() {
-      const result = await customerService.getUserData();
-      if (result) {
-        const serializeUserData = formatUserData(result);
-        setUser(serializeUserData);
+    setTimeout(() => {
+      async function fetchProduct() {
+        const result = await customerService.getUserData();
+        if (result) {
+          const serializeUserData = formatUserData(result);
+          setUser(serializeUserData);
+        }
       }
-    }
-    fetchProduct();
+      fetchProduct();
+    }, 3000000);
   }, [customerService]);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <div>{CustomLoader}</div>;
   }
 
   return (

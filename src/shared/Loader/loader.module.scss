@@ -1,4 +1,8 @@
 .cup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 140px;
   width: 180px;
   border: 6px solid var(--color-base-bg);
