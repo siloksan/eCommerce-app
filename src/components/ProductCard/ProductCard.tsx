@@ -1,9 +1,18 @@
 import productImgPlaceholder from 'assets/imgs/placeholder-card.webp';
-import { ProductCardProps } from 'types/interfaces';
 import Price from 'components/Price/Price';
 import textTailoring from 'utils/helpers/textTailoring';
 
 import classes from './ProductCard.module.scss';
+
+interface ProductCardProps {
+  key: string;
+  productName: string;
+  currency: string;
+  price: number;
+  discountedPrice?: number;
+  imgLink?: string;
+  description?: string;
+}
 
 function ProductCard({ productName, currency, price, discountedPrice, imgLink, description }: ProductCardProps) {
   const MAX_CHAR_NAME = 40; // max characters for name on the card

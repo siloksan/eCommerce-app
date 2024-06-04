@@ -20,14 +20,4 @@ interface CustomerDraft {
   defaultBillingAddress?: number;
 }
 
-export interface ProductCardProps {
-  key: string;
-  productName: string;
-  currency: string;
-  price: number;
-  discountedPrice?: number;
-  imgLink?: string;
-  description?: string;
-}
-
 export type { UserAuthData, CustomerDraft, SerializedAddress };
