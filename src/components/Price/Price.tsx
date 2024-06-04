@@ -13,11 +13,11 @@ function Price({ currency, price, discountedPrice }: PriceProps) {
   return discountedPrice ? (
     <div className={classes.card__price}>
       <span>
-        {price}
+        {discountedPrice}
         {currencySymbol}
       </span>
       <span className={classes.card__price_old}>
-        {discountedPrice}
+        {price}
         {currencySymbol}
       </span>
     </div>
