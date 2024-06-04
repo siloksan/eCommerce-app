@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ProductProjection } from '@commercetools/platform-sdk';
 
-import client from 'api/client/client';
+import Client from 'api/client/client';
 import ProductList from 'components/ProductList/ProductList';
 import Pagination from 'components/Pagination/Pagination';
 
@@ -16,7 +16,7 @@ function Catalog() {
   const [length, setLength] = useState(PRODUCTS_PER_PAGE);
 
   useEffect(() => {
-    client.apiRoot
+    Client.apiRoot
       .productProjections()
       .get({
         queryArgs: {
