@@ -25,7 +25,7 @@ export interface ProductCardProps {
   productName: string;
   currency: string;
   price: number;
-  previousPrice?: number;
+  discountedPrice?: number;
   imgLink?: string;
   description?: string;
 }

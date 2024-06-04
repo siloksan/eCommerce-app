@@ -5,7 +5,7 @@ import textTailoring from 'utils/helpers/textTailoring';
 
 import classes from './ProductCard.module.scss';
 
-function ProductCard({ productName, currency, price, previousPrice, imgLink, description }: ProductCardProps) {
+function ProductCard({ productName, currency, price, discountedPrice, imgLink, description }: ProductCardProps) {
   const MAX_CHAR_NAME = 40; // max characters for name on the card
   const MAX_CHAR_DESCRIPTION = 100; // max characters for description
 
@@ -13,7 +13,7 @@ function ProductCard({ productName, currency, price, previousPrice, imgLink, des
 
   const priceInfo = { currency, price };
 
-  if (previousPrice) Object.assign(priceInfo, { previousPrice });
+  if (discountedPrice) Object.assign(priceInfo, { discountedPrice });
 
   const cardDescription = description ? textTailoring(description, MAX_CHAR_DESCRIPTION) : '';
 

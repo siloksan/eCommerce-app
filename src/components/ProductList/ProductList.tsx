@@ -17,10 +17,13 @@ function ProductList({ products }: ProductListProps) {
 
         let currencyCode = 'EUR';
         let price = 0;
-        if (product.masterVariant.prices) {
-          currencyCode =
-            product.masterVariant.prices.length > 0 ? product.masterVariant.prices[0].value.currencyCode : 'EUR';
-          price = product.masterVariant.prices.length > 0 ? product.masterVariant.prices[0].value.centAmount / 100 : 0;
+        let discountedPrice;
+        if (product.masterVariant.prices && product.masterVariant.prices.length > 0) {
+          currencyCode = product.masterVariant.prices[0].value.currencyCode;
+          price = product.masterVariant.prices[0].value.centAmount / 100;
+          if (product.masterVariant.prices[0].discounted) {
+            discountedPrice = product.masterVariant.prices[0].discounted.value.centAmount / 100;
+          }
         }
 
         const description = product.description ? product.description['en-GB'] : ''; // TODO : make 'en-GB' a constant - default locale;
@@ -33,6 +36,7 @@ function ProductList({ products }: ProductListProps) {
             price={price}
             imgLink={img}
             description={description}
+            discountedPrice={discountedPrice}
           />
         );
       })}

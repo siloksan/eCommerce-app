@@ -4,20 +4,20 @@ import classes from './Price.module.scss';
 interface PriceProps {
   currency: string;
   price: number;
-  previousPrice?: number;
+  discountedPrice?: number;
 }
 
-function Price({ currency, price, previousPrice }: PriceProps) {
+function Price({ currency, price, discountedPrice }: PriceProps) {
   const currencySymbol = currencyCodeToSymbol(currency);
 
-  return previousPrice ? (
+  return discountedPrice ? (
     <div className={classes.card__price}>
       <span>
         {price}
         {currencySymbol}
       </span>
       <span className={classes.card__price_old}>
-        {previousPrice}
+        {discountedPrice}
         {currencySymbol}
       </span>
     </div>
