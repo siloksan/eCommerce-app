@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import ImageSlider from 'components/ImageSlider/ImageSlider';
 import ProductDetails from 'components/ProductDetails/ProductDetails';
 import useApiContext from 'context/context';
@@ -6,11 +7,9 @@ import Product from 'types/product-interfaces';
 
 import styles from './Product.module.scss';
 
-interface Props {
-  productKey: string;
-}
+function ProductPage() {
+  const { productKey } = useParams();
 
-function ProductPage({ productKey }: Props) {
   const [product, setProduct] = useState<Product | null>(null);
 
   const { productService } = useApiContext();
@@ -22,7 +21,7 @@ function ProductPage({ productKey }: Props) {
         setProduct(result);
       }
     }
-    fetchProduct(productKey);
+    fetchProduct(productKey ?? '');
   }, [productKey, productService]);
 
   if (!product) {

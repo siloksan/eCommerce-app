@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import productImgPlaceholder from 'assets/imgs/placeholder-card.webp';
 import Price from 'components/Price/Price';
 import textTailoring from 'utils/helpers/textTailoring';
@@ -5,7 +6,7 @@ import textTailoring from 'utils/helpers/textTailoring';
 import classes from './ProductCard.module.scss';
 
 interface ProductCardProps {
-  key: string;
+  productKey: string;
   productName: string;
   currency: string;
   price: number;
@@ -14,7 +15,15 @@ interface ProductCardProps {
   description?: string;
 }
 
-function ProductCard({ productName, currency, price, discountedPrice, imgLink, description }: ProductCardProps) {
+function ProductCard({
+  productKey,
+  productName,
+  currency,
+  price,
+  discountedPrice,
+  imgLink,
+  description,
+}: ProductCardProps) {
   const MAX_CHAR_NAME = 40; // max characters for name on the card
   const MAX_CHAR_DESCRIPTION = 100; // max characters for description
 
@@ -27,14 +36,14 @@ function ProductCard({ productName, currency, price, discountedPrice, imgLink, d
   const cardDescription = description ? textTailoring(description, MAX_CHAR_DESCRIPTION) : '';
 
   return (
-    <a className={classes.card} href="main">
+    <Link to={`../product/${productKey}`} className={classes.card}>
       <div className={classes.card__imageContainer}>
         <img src={img} alt="Product" />
       </div>
       <h3 className={classes.card__title}>{textTailoring(productName, MAX_CHAR_NAME)}</h3>
       <p>{cardDescription}</p>
       <Price {...priceInfo} />
-    </a>
+    </Link>
   );
 }
 

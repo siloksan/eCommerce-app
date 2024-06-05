@@ -27,10 +27,11 @@ function ProductList({ products }: ProductListProps) {
         }
 
         const description = product.description ? product.description['en-GB'] : ''; // TODO : make 'en-GB' a constant - default locale;
+        const productKey = product.key ?? '';
 
         return (
           <ProductCard
-            key={product.id}
+            productKey={productKey}
             productName={product.name['en-GB']}
             currency={currencyCode}
             price={price}

@@ -39,8 +39,8 @@ const router = createBrowserRouter([
         element: <Catalog />,
       },
       {
-        path: 'product',
-        element: <ProductPage productKey="lavazza-crema-aroma" />,
+        path: 'product/:productKey',
+        element: <ProductPage />,
       },
       {
         path: 'user-profile',
