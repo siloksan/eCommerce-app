@@ -31,6 +31,7 @@ function ProductList({ products }: ProductListProps) {
 
         return (
           <ProductCard
+            key={product.id}
             productKey={productKey}
             productName={product.name['en-GB']}
             currency={currencyCode}
