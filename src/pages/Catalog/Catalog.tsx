@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ProductProjection } from '@commercetools/platform-sdk';
 
-import Client from 'api/client/client';
+import { client } from 'api/client/client';
 import ProductList from 'components/ProductList/ProductList';
 import Pagination from 'components/Pagination/Pagination';
 import Search from 'components/Search/Search';
@@ -18,7 +18,7 @@ function Catalog() {
   const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
-    Client.apiRoot
+    client.apiRoot
       .productProjections()
       .search()
       .get({
