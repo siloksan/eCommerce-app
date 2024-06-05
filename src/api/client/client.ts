@@ -7,7 +7,7 @@ import {
 } from '@commercetools/sdk-client-v2';
 import { ByProjectKeyRequestBuilder, createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 import CustomTokenCache from 'utils/helpers/tokenCache';
-import { UserAuthData } from 'types/interfaces';
+import { UserAuthData } from 'types/customer-interfaces';
 import StorageController from 'utils/helpers/localStorage';
 import UserStatus from 'types/types';
 
@@ -108,10 +108,14 @@ class Client {
     }
     return createApiBuilderFromCtpClient(this.getAnonymousFlowClient()).withProjectKey({ projectKey: this.projectKey });
   }
+
+  public setApiRoot(userAuthData?: UserAuthData): void {
+    this.apiRoot = this.getApiRoot(userAuthData);
+  }
 }
 
 const client = new Client();
 
-export { Client };
+export { client };
 
-export default client;
+export type { Client };

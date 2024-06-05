@@ -1,0 +1,78 @@
+$primary-color: #6f4e37;
+$secondary-color: #c89f94;
+$accent-color: #d2691e;
+$background-color: #f3e5d0;
+$text-color: #3c2f2f;
+$highlight-color: #ffcc00;
+
+.container {
+  font-family: 'Arial', sans-serif;
+  background-color: $background-color;
+  color: $text-color;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-family: 'Georgia', serif;
+    color: $primary-color;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}
+
+.personalInfo {
+  margin-bottom: 40px;
+
+  p {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+}
+
+.addresses {
+  h3 {
+    font-family: 'Georgia', serif;
+    color: $primary-color;
+    margin-bottom: 20px;
+  }
+
+  .address {
+    background-color: white;
+    border: 1px solid $secondary-color;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+
+    p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+
+    .defaultBilling {
+      display: inline-block;
+      background-color: $highlight-color;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .defaultShipping {
+      display: inline-block;
+      background-color: $accent-color;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  }
+}
