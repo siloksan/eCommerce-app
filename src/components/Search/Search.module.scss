@@ -1,0 +1,18 @@
+.search {
+  margin: 20px auto;
+  border: 2px solid var(--color-accent);
+  max-width: 500px;
+  font-family: var(--font-family--sans-serif);
+  display: flex;
+  font-weight: 700;
+  &__input {
+    background-color: transparent;
+    border: none;
+    flex-grow: 2;
+    padding: 0 10px;
+    font-weight: 700;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
