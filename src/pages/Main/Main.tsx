@@ -15,7 +15,10 @@ function Main() {
           <Link to="/user-profile">User Profile Page</Link> - /user-profile
         </li>
         <li>
-          <Link to="product">Product</Link> - /product
+          <Link to="product/lavazza-crema-aroma">Product</Link> - /product/:productKey
+        </li>
+        <li>
+          <Link to="catalog">Catalog</Link> - /catalog
         </li>
       </ul>
     </>

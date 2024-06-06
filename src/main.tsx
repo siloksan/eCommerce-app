@@ -10,6 +10,7 @@ import Layout from 'layout/Layout';
 import Main from 'pages/Main/Main';
 import LoginForm from 'pages/Login/Login';
 import RegistrationPage from 'pages/Registration/Registration';
+import Catalog from 'pages/Catalog/Catalog';
 import NotFoundPage from 'pages/NotFound/NotFound';
 import ProductPage from 'pages/Product/Product';
 import UserProfile from 'pages/UserProfile/UserProfile';
@@ -34,8 +35,12 @@ const router = createBrowserRouter([
         element: <RegistrationPage />,
       },
       {
-        path: 'product',
-        element: <ProductPage productKey="lavazza-crema-aroma" />,
+        path: 'catalog',
+        element: <Catalog />,
+      },
+      {
+        path: 'product/:productKey',
+        element: <ProductPage />,
       },
       {
         path: 'user-profile',
