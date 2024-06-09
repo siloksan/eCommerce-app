@@ -4,11 +4,17 @@ interface Props {
   label: string;
   type?: 'submit' | 'reset' | 'button';
   handleClick?: () => void;
+  accent?: boolean;
 }
 
-function Button({ label, type = 'button', handleClick }: Props) {
+function Button({ label, type = 'button', accent = true, handleClick }: Props) {
+  let className = classes.button;
+  if (accent) {
+    className += `  ${classes.buttonAccent}`;
+  }
+
   return (
-    <button type={type} className={`${classes.button} ${classes.buttonAccent}`} onClick={handleClick}>
+    <button type={type} className={className} onClick={handleClick}>
       {label}
     </button>
   );
