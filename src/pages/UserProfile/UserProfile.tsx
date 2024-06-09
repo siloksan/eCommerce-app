@@ -47,7 +47,7 @@ export default function UserProfile() {
             const isDefaultBilling = defaultBillingAddressId === address.id;
             const isDefaultShipping = defaultShippingAddressId === address.id;
             return (
-              <div className={classes.address}>
+              <div className={classes.address} key={address.id}>
                 <p>Street: {address.streetName}</p>
                 <p>
                   City: {address.city}, {address.state} Postal code: {address.postalCode}
