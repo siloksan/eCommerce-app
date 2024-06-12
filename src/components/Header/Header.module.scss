@@ -1,6 +1,15 @@
+@use 'src/styles/mixins.scss' as *;
+
 .header {
   padding: 10px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.cart {
+  @include link-reset;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-right: 15px;
 }
