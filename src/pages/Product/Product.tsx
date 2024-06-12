@@ -31,7 +31,7 @@ function ProductPage() {
   return (
     <div className={styles.container}>
       <ImageSlider images={product.images} alt={product.title} />
-      <ProductDetails name={product.title} prices={product.prices} description={product.description} />
+      <ProductDetails name={product.title} prices={product.prices} description={product.description} id={product.id} />
     </div>
   );
 }

@@ -3,12 +3,14 @@ import { Product, ProductPrice } from 'types/product-interfaces';
 
 class FormatProductData {
   public serializeProductData(product: ProductResponse) {
+    const { id } = product;
     const { name, description, masterVariant, variants } = product.masterData.current;
     const { images } = masterVariant;
     const title = name['en-GB'];
     const prices: ProductPrice[] = [];
     const result: Product = {
       prices,
+      id,
     };
     result.prices = prices;
     if (title) {

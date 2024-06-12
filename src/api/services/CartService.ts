@@ -1,4 +1,4 @@
-import { MyCartUpdate } from '@commercetools/platform-sdk';
+import { MyCartUpdate, MyCartUpdateAction } from '@commercetools/platform-sdk';
 import { type Client, client } from 'api/client/client';
 import { toast } from 'react-toastify';
 
@@ -80,10 +80,10 @@ class CartService {
     this.client.storageController.setItem(key, data);
   }
 
-  public updateCart(id: string) {
+  public async addToCart(id: string) {
     if (!this.cartId || !this.cartVersion) {
       toast.error("I'm sorry, but the cart ID or cart version does not exist.");
-      return;
+      return false;
     }
     const myCartUpdate: MyCartUpdate = {
       version: Number(this.cartVersion),
@@ -97,7 +97,7 @@ class CartService {
       ],
     };
 
-    client.apiRoot
+    const result = await client.apiRoot
       .me()
       .carts()
       .withId({
@@ -106,10 +106,64 @@ class CartService {
       .post({ body: myCartUpdate })
       .execute()
       .then((res) => {
-        const { version } = res.body;
-        this.setCartData(version.toString(), Cart.cartVersion);
+        if (res.statusCode === 200) {
+          const { version } = res.body;
+          this.setCartData(version.toString(), Cart.cartVersion);
+          return true;
+        }
+        return false;
       })
       .catch((err) => toast.error(err));
+    return result;
+  }
+
+  public async removeFromCart(id: string, quantity?: number) {
+    if (!this.cartId || !this.cartVersion) {
+      toast.error("I'm sorry, but the cart ID or cart version does not exist.");
+      return false;
+    }
+
+    const lineItems = await this.getCart().then((cart) => {
+      if (cart) {
+        return cart.lineItems;
+      }
+      throw new Error("I'm sorry, but something went wrong and we were unable to get a shopping cart for you.");
+    });
+
+    const itemWithProduct = lineItems.filter((item) => item.productId === id);
+    const myCartUpdate: MyCartUpdate = {
+      version: Number(this.cartVersion),
+      actions: [],
+    };
+
+    const action: MyCartUpdateAction = {
+      action: 'removeLineItem',
+      lineItemId: itemWithProduct[0].id,
+    };
+
+    myCartUpdate.actions.push(action);
+    if (quantity) {
+      Object.defineProperty(action, 'quantity', quantity);
+    }
+
+    const result = await client.apiRoot
+      .me()
+      .carts()
+      .withId({
+        ID: this.cartId,
+      })
+      .post({ body: myCartUpdate })
+      .execute()
+      .then((res) => {
+        if (res.statusCode === 200) {
+          const { version } = res.body;
+          this.setCartData(version.toString(), Cart.cartVersion);
+          return true;
+        }
+        return false;
+      })
+      .catch((err) => toast.error(err));
+    return result;
   }
 }
 
