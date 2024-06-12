@@ -1,0 +1,23 @@
+@use 'src/styles/mixins.scss' as *;
+
+.field {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.select {
+  @include select;
+}
+
+.error {
+  margin-top: 5px;
+  color: red;
+  font-size: 12px;
+}

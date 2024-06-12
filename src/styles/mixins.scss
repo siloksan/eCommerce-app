@@ -1,0 +1,86 @@
+@mixin link-reset {
+  color: currentColor;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+  
+}
+
+@mixin hover-shift($shift-size: 3px, $shadow-color: var(--color-shade)) {
+  transition: 0.3s;
+  &:hover {
+    box-shadow: $shift-size $shift-size 0px 0px $shadow-color;
+    transform: translate(-($shift-size), -($shift-size));
+  }
+  &:active {
+    box-shadow: -($shift-size) -3px 0px 0px var(--color-light);
+    transform: translate(0, 0);
+  }
+}
+
+@mixin button--accent($font-size: 20px) {
+  text-transform: uppercase;
+  font-size: $font-size;
+  border: 2px solid var(--color-base-text);
+  border-radius: 30px;
+  background-color: var(--color-accent);
+  font-weight: 700;
+  font-family: var(--font-family--sans-serif);
+}
+
+@mixin button($font-size: 18px, $accent: false) {
+  padding: 1ch 1.5ch;
+  text-align: center;
+  letter-spacing: 1.5px;
+  font-family: var(--font-family--serif);
+  font-size: $font-size;
+  font-weight: 700;
+  color: var(--color-base-text);
+  @include hover-shift();
+
+  @if $accent {
+    @include button--accent;
+  }
+}
+
+@mixin form($max-width: 400px) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: var(--color-light);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px var(--color-shade);
+  max-width: $max-width;
+  margin: auto;
+}
+
+@mixin select($font-size: 18px) {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-family: var(--font-family--serif);
+  cursor: pointer;
+}
+
+@mixin media-laptop() {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin media-tablet() {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin media-mobile() {
+  @media (max-width: 380px) {
+    @content;
+  }
+}
