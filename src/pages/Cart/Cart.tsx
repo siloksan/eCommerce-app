@@ -3,7 +3,6 @@ import { Cart } from '@commercetools/platform-sdk';
 import useApiContext from 'context/context';
 import CustomLoader from 'shared/Loader/loader';
 
-import Button from 'shared/Button/Button';
 import ProductBasket from 'components/ProductBasket/ProductBasket';
 
 import CartOrder from 'components/CartOrder/CartOrder';
@@ -13,18 +12,6 @@ function CartPage() {
   const { cartService } = useApiContext();
 
   const [cart, setCart] = useState<Cart | null>(null);
-
-  // function createCart() {
-  //   cartService.createCart();
-  // }
-
-  // function checkCart() {
-  //   cartService.checkIfCartExist();
-  // }
-
-  function updateCart() {
-    cartService.updateCart('3bc2d258-bbd6-4bea-bda4-d024197f4ada');
-  }
 
   useEffect(() => {
     cartService.getCart().then((res) => {
@@ -40,9 +27,11 @@ function CartPage() {
     );
   }
 
-  const { lineItems: products } = cart;
+  const { lineItems: products, totalPrice } = cart;
+  let productsCount = 0;
 
   const productList = products.map((product) => {
+    productsCount += product.quantity;
     return <ProductBasket product={product} key={product.id} />;
   });
 
@@ -55,14 +44,9 @@ function CartPage() {
           <ul className={styles.list}>{productList}</ul>
         </section>
         <section className={styles.section}>
-          <CartOrder />
+          <CartOrder totalPrice={totalPrice} productsCount={productsCount} />
         </section>
       </div>
-
-      {/* <Button label="Create cart" handleClick={() => createCart()} />
-      <Button label="Check cart" handleClick={() => checkCart()} /> */}
-      <Button label="Update cart" handleClick={() => updateCart()} />
-      {/* <Button label="Get cart" handleClick={() => getCart()} /> */}
     </div>
   );
 }

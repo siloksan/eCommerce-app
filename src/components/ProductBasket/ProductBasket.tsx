@@ -34,7 +34,11 @@ function ProductBasket({ product }: Props) {
       </Link>
       <div className={styles.info}>
         <h3 className={styles.label}>{productName}</h3>
-        <Price currency={currencyCode} price={baseCentAmount} discountedPrice={discountedPrice} />
+        <Price
+          currency={currencyCode}
+          price={baseCentAmount / 100}
+          discountedPrice={discountedPrice && discountedPrice / 100}
+        />
         <div>
           <Button label={trashBtn} />
         </div>

@@ -1,8 +1,19 @@
 import Button from 'shared/Button/Button';
 
+import currencyCodeToSymbol from 'utils/helpers/currencyCodeToSymbol';
+import { CentPrecisionMoney } from '@commercetools/platform-sdk';
 import styles from './CartOrder.module.scss';
 
-function CartOrder() {
+interface Props {
+  totalPrice: CentPrecisionMoney;
+  productsCount: number;
+}
+
+function CartOrder({ totalPrice, productsCount }: Props) {
+  const { centAmount, currencyCode } = totalPrice;
+  const currencySymbol = currencyCodeToSymbol(currencyCode);
+  const price = centAmount / 100;
+
   return (
     <div className={styles.container}>
       <div className={styles.order_btn}>
@@ -13,10 +24,10 @@ function CartOrder() {
         <h2>Your shopping cart:</h2>
         <div className={styles.order_info}>
           <div>
-            Products <span>(0)</span>
+            Products <span>({productsCount})</span>
           </div>
           <div>
-            1223 <span>EUR</span>
+            {price} <span>{currencySymbol}</span>
           </div>
         </div>
       </div>
