@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Cart } from '@commercetools/platform-sdk';
-import useApiContext from 'context/context';
+import { useEffect } from 'react';
+// import { Cart } from '@commercetools/platform-sdk';
+// import useApiContext from 'context/context';
 import CustomLoader from 'shared/Loader/loader';
 
 import ProductBasket from 'components/ProductBasket/ProductBasket';
@@ -8,18 +8,11 @@ import ProductBasket from 'components/ProductBasket/ProductBasket';
 import CartOrder from 'components/CartOrder/CartOrder';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useCartContext } from 'context/cart-context';
 import styles from './Cart.module.scss';
 
 function CartPage() {
-  const { cartService } = useApiContext();
-
-  const [cart, setCart] = useState<Cart | null>(null);
-
-  useEffect(() => {
-    cartService.getCart().then((res) => {
-      if (res) setCart(res);
-    });
-  }, [cartService]);
+  const { cart } = useCartContext();
 
   useEffect(() => {
     if (cart && cart.lineItems.length === 0) {

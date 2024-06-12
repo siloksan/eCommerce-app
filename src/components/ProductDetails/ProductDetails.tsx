@@ -4,6 +4,7 @@ import { ProductPrice } from 'types/product-interfaces';
 import useApiContext from 'context/context';
 
 import { useEffect, useState } from 'react';
+import { useCartContext } from 'context/cart-context';
 import styles from './ProductDetails.module.scss';
 
 interface Props {
@@ -20,17 +21,29 @@ function ProductDetails({ name = '', prices, description = '', id }: Props) {
     discountedPrice = prices[1].price;
   }
   const { cartService } = useApiContext();
+  const { setCart } = useCartContext();
+
   const [inCart, setInCart] = useState(false);
 
   function addToShoppingCart(productId: string) {
     cartService.addToCart(productId).then((res) => {
-      if (res) setInCart(true);
+      if (res) {
+        setInCart(true);
+        cartService.getCart().then((cart) => {
+          if (cart) setCart(cart);
+        });
+      }
     });
   }
 
   function removeFromShoppingCart(productId: string) {
     cartService.removeFromCart(productId).then((res) => {
-      if (res) setInCart(false);
+      if (res) {
+        setInCart(false);
+        cartService.getCart().then((cart) => {
+          if (cart) setCart(cart);
+        });
+      }
     });
   }
 

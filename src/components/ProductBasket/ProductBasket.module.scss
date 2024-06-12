@@ -5,8 +5,8 @@
   @include container_shadow;
   align-items: start;
   background-color: var(--color-soft);
-  flex-grow: 1;
-  width: 100%;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .image {
@@ -18,17 +18,16 @@
 }
 
 .info {
-  margin: 0 auto;
-  margin-left: 20px;
   display: flex;
   flex-direction: column;
+  align-self: flex-start;
   width: 200px;
   align-self: auto;
-  &>*:not(:last-child) {
+  & > *:not(:last-child) {
     margin-bottom: 20px;
     max-width: max-content;
   }
-  &>*:nth-child(2) {
+  & > *:nth-child(2) {
     margin-top: 20px;
     max-width: max-content;
   }
@@ -69,7 +68,25 @@
 }
 
 .quantity_sign {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 900;
   background-color: var(--color-light);
+}
+
+.update {
+  background-color: var(--color-modify);
+}
+
+.disable {
+  background-color: var(--color-soft);
+  &:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.totalPrice {
+  align-self: center;
+  margin-right: 60px;
+  border-bottom: 2px solid var(--color-dark);
 }
