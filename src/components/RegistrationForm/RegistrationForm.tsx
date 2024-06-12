@@ -1,10 +1,10 @@
-import customerService from 'api/services/CustomerService';
 import AddressForm from 'components/AddressForm/AddressForm';
 import CustomerForm from 'components/CustomerForm/CustomerForm';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import ButtonSubmit from 'shared/ButtonSubmit/ButtonSubmit';
-import { useState } from 'react';
+import Button from 'shared/Button/Button';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import useApiContext from 'context/context';
 
 import classes from './RegistrationForm.module.scss';
 
@@ -40,6 +40,8 @@ function RegistrationForm() {
   const methods = useForm<FormData>({ defaultValues });
 
   const navigate = useNavigate();
+
+  const { customerService } = useApiContext();
 
   /* для отслеживания состояния какой из адрессов будет применён как общий для доставки и выставления счёта.
   если один из них false, то со значением true будет общий адресс.
@@ -81,7 +83,7 @@ function RegistrationForm() {
             {address.shipping && <AddressForm typeOfAddress="shipping" handleAddressChange={handleAddressChange} />}
             {address.billing && <AddressForm typeOfAddress="billing" handleAddressChange={handleAddressChange} />}
           </div>
-          <ButtonSubmit label="Submit" />
+          <Button type="submit" label="Submit" />
         </form>
       </FormProvider>
     </>
