@@ -136,7 +136,7 @@ class CartService {
       actions: [],
     };
 
-    const actionRemoveAll: MyCartUpdateAction = {
+    const actionRemoveLine: MyCartUpdateAction = {
       action: 'removeLineItem',
       lineItemId: itemWithProduct[0].id,
     };
@@ -150,8 +150,55 @@ class CartService {
     if (quantity) {
       myCartUpdate.actions.push(action);
     } else {
-      myCartUpdate.actions.push(actionRemoveAll);
+      myCartUpdate.actions.push(actionRemoveLine);
     }
+
+    const result = await client.apiRoot
+      .me()
+      .carts()
+      .withId({
+        ID: this.cartId,
+      })
+      .post({ body: myCartUpdate })
+      .execute()
+      .then((res) => {
+        if (res.statusCode === 200) {
+          const { version } = res.body;
+          this.setCartData(version.toString(), Cart.cartVersion);
+          return true;
+        }
+        return false;
+      })
+      .catch((err) => toast.error(err));
+    return result;
+  }
+
+  public async removeAllGoods() {
+    if (!this.cartId || !this.cartVersion) {
+      toast.error("I'm sorry, but the cart ID or cart version does not exist.");
+      return false;
+    }
+
+    const lineItems = await this.getCart().then((cart) => {
+      if (cart) {
+        return cart.lineItems;
+      }
+      throw new Error("I'm sorry, but something went wrong and we were unable to get a shopping cart for you.");
+    });
+
+    const myCartUpdate: MyCartUpdate = {
+      version: Number(this.cartVersion),
+      actions: [],
+    };
+
+    const lineItemsId = lineItems.map((item) => item.id);
+    lineItemsId.forEach((id) => {
+      const actionRemoveLine: MyCartUpdateAction = {
+        action: 'removeLineItem',
+        lineItemId: id,
+      };
+      myCartUpdate.actions.push(actionRemoveLine);
+    });
 
     const result = await client.apiRoot
       .me()
