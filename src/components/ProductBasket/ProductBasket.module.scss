@@ -3,14 +3,16 @@
 .container {
   display: flex;
   @include container_shadow;
-  // justify-content: space-between;
   align-items: start;
   background-color: var(--color-soft);
+  flex-grow: 1;
+  width: 100%;
 }
 
 .image {
   & img {
-    max-width: 250px;
+    height: 200px;
+    width: 250px;
     border-radius: 1rem;
   }
 }
@@ -36,8 +38,15 @@
   font-size: 1.8rem;
 }
 
+.controller {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .quantity_container {
-  margin-left: 20px;
   display: flex;
   align-self: center;
   font-size: 2rem;

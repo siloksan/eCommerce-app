@@ -17,17 +17,17 @@ export default function NavBar() {
         <Button label="☰" accent={false} handleClick={toggleDropdown} />
       </div>
       <ul className={`${styles.list} ${dropdownOpen ? styles.open : ''}`}>
-        <li className={styles.item}>
+        <li className={styles.item} onClick={toggleDropdown}>
           <Link to="/catalog" className={styles.link}>
             Catalog
           </Link>
         </li>
-        <li className={styles.item}>
+        <li className={styles.item} onClick={toggleDropdown}>
           <Link to="/about_us" className={styles.link}>
             About Us
           </Link>
         </li>
-        <li className={styles.item}>
+        <li className={styles.item} onClick={toggleDropdown}>
           <Link to="/" className={styles.link}>
             Main
           </Link>

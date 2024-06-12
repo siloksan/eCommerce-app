@@ -39,17 +39,19 @@ function ProductBasket({ product }: Props) {
           price={baseCentAmount / 100}
           discountedPrice={discountedPrice && discountedPrice / 100}
         />
+      </div>
+      <div className={styles.controller}>
+        <div className={styles.quantity_container}>
+          <div>
+            <Button label="-" accent={false} additionalClass={styles.quantity_sign} />
+          </div>
+          <div className={styles.quantity}>{quantity}</div>
+          <div>
+            <Button label="+" accent={false} additionalClass={styles.quantity_sign} />
+          </div>
+        </div>
         <div>
           <Button label={trashBtn} />
-        </div>
-      </div>
-      <div className={styles.quantity_container}>
-        <div>
-          <Button label="-" accent={false} additionalClass={styles.quantity_sign} />
-        </div>
-        <div className={styles.quantity}>{quantity}</div>
-        <div>
-          <Button label="+" accent={false} additionalClass={styles.quantity_sign} />
         </div>
       </div>
     </li>
