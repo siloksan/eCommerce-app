@@ -12,4 +12,18 @@
   font-size: 1.2rem;
   font-weight: 600;
   margin-right: 15px;
+  position: relative;
+}
+
+.quantity {
+  background-color: var(--color-modify);
+  border: 2px solid var(--color-dark);
+  font-size: 2rem;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  border-radius: 50%;
+  padding: 5px;
+  line-height: .7;
+  z-index: 10;
 }

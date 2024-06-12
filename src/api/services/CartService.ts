@@ -80,7 +80,7 @@ class CartService {
     this.client.storageController.setItem(key, data);
   }
 
-  public async addToCart(id: string) {
+  public async addToCart(id: string, quantity: number = 1) {
     if (!this.cartId || !this.cartVersion) {
       toast.error("I'm sorry, but the cart ID or cart version does not exist.");
       return false;
@@ -92,7 +92,7 @@ class CartService {
           action: 'addLineItem',
           productId: id,
           variantId: 1,
-          quantity: 1,
+          quantity,
         },
       ],
     };
@@ -136,14 +136,21 @@ class CartService {
       actions: [],
     };
 
-    const action: MyCartUpdateAction = {
+    const actionRemoveAll: MyCartUpdateAction = {
       action: 'removeLineItem',
       lineItemId: itemWithProduct[0].id,
     };
 
-    myCartUpdate.actions.push(action);
+    const action: MyCartUpdateAction = {
+      action: 'removeLineItem',
+      lineItemId: itemWithProduct[0].id,
+      quantity,
+    };
+
     if (quantity) {
-      Object.defineProperty(action, 'quantity', quantity);
+      myCartUpdate.actions.push(action);
+    } else {
+      myCartUpdate.actions.push(actionRemoveAll);
     }
 
     const result = await client.apiRoot
