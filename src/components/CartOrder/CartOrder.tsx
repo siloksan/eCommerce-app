@@ -2,6 +2,8 @@ import Button from 'shared/Button/Button';
 
 import currencyCodeToSymbol from 'utils/helpers/currencyCodeToSymbol';
 import { CentPrecisionMoney } from '@commercetools/platform-sdk';
+import { useCartContext } from 'context/cart-context';
+import useApiContext from 'context/context';
 import styles from './CartOrder.module.scss';
 
 interface Props {
@@ -13,6 +15,17 @@ function CartOrder({ totalPrice, productsCount }: Props) {
   const { centAmount, currencyCode } = totalPrice;
   const currencySymbol = currencyCodeToSymbol(currencyCode);
   const price = centAmount / 100;
+
+  const { setCart } = useCartContext();
+  const { cartService } = useApiContext();
+
+  function clearShoppingCart() {
+    cartService.removeAllGoods().then(() => {
+      cartService.getCart().then((cart) => {
+        if (cart) setCart(cart);
+      });
+    });
+  }
 
   return (
     <div className={styles.container}>
@@ -32,7 +45,7 @@ function CartOrder({ totalPrice, productsCount }: Props) {
         </div>
       </div>
       <div className={styles.remove_btn}>
-        <Button label="Clear the basket" />
+        <Button label="Clear the basket" handleClick={() => clearShoppingCart()} />
       </div>
     </div>
   );
