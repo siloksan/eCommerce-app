@@ -6,6 +6,7 @@ import CustomLoader from 'shared/Loader/loader';
 import Button from 'shared/Button/Button';
 import ProductBasket from 'components/ProductBasket/ProductBasket';
 
+import CartOrder from 'components/CartOrder/CartOrder';
 import styles from './Cart.module.scss';
 
 function CartPage() {
@@ -54,7 +55,7 @@ function CartPage() {
           <ul className={styles.list}>{productList}</ul>
         </section>
         <section className={styles.section}>
-          <h2>Your goods</h2>
+          <CartOrder />
         </section>
       </div>
 
