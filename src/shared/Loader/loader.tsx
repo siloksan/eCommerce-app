@@ -8,4 +8,4 @@ function CustomLoader() {
   );
 }
 
-export default CustomLoader();
+export default CustomLoader;

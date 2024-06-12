@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import useApiContext from 'context/context';
 import formatUserData from 'utils/helpers/formatUserData';
 import { UserData } from 'types/customer-interfaces';
+import CustomLoader from 'shared/Loader/loader';
 import classes from './UserProfile.module.scss';
-import CustomLoader from '../../shared/Loader/loader';
 
 export default function UserProfile() {
   const [user, setUser] = useState<UserData | null>(null);
@@ -22,7 +22,11 @@ export default function UserProfile() {
   }, [customerService]);
 
   if (!user) {
-    return <div>{CustomLoader}</div>;
+    return (
+      <div>
+        <CustomLoader />
+      </div>
+    );
   }
 
   return (
@@ -47,7 +51,7 @@ export default function UserProfile() {
             const isDefaultBilling = defaultBillingAddressId === address.id;
             const isDefaultShipping = defaultShippingAddressId === address.id;
             return (
-              <div className={classes.address}>
+              <div className={classes.address} key={address.id}>
                 <p>Street: {address.streetName}</p>
                 <p>
                   City: {address.city}, {address.state} Postal code: {address.postalCode}

@@ -21,9 +21,14 @@ interface Address {
 class CustomerService {
   client: Client = client;
 
+  public userAuthorized: boolean = false;
+
+  constructor() {
+    if (UserStatus.registered === this.client.storageController.getUserStatus()) this.userAuthorized = true;
+  }
+
   public async signIn(userAuthData: UserAuthData) {
-    const isAuthorized = this.client.storageController.getUserStatus();
-    if (isAuthorized === UserStatus.registered) {
+    if (this.userAuthorized) {
       toast.error("You've already authorized!");
       return false;
     }
@@ -37,6 +42,7 @@ class CustomerService {
           const firstName = JSON.stringify(res.body.firstName);
           toast(`Welcome to the Coffee Lovers ${firstName}`);
           client.storageController.setUserStatus(UserStatus.registered);
+          this.userAuthorized = true;
           return true;
         }
         return false;
@@ -48,8 +54,7 @@ class CustomerService {
   }
 
   public async signUp(data: FormData, selectedAddress: SelectedAddress) {
-    const isAuthorized = this.client.storageController.getUserStatus();
-    if (isAuthorized === UserStatus.registered) {
+    if (this.userAuthorized) {
       toast.error("You've already registered!");
       return false;
     }
@@ -81,12 +86,12 @@ class CustomerService {
   }
 
   public logOut() {
-    const isAuthorized = this.client.storageController.getUserStatus();
-    if (isAuthorized === UserStatus.registered) {
+    if (this.userAuthorized) {
       this.client.storageController.removeUserStatus();
       this.client.tokenCache.clearToken();
       this.client.setApiRoot();
       toast.success('Goodbye!');
+      this.userAuthorized = false;
     }
   }
 

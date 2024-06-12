@@ -57,6 +57,13 @@
   margin: auto;
 }
 
+@mixin container-shadow($max-width: 100%) {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px var(--color-shade);
+  max-width: $max-width;
+}
+
 @mixin select($font-size: 18px) {
   width: 100%;
   padding: 10px;

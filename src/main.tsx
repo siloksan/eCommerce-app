@@ -3,9 +3,7 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import { client } from 'api/client/client';
-import { customerService } from 'api/services/CustomerService';
-import { ApiContext } from 'context/context';
+import { ApiContext, dataContext } from 'context/context';
 import Layout from 'layout/Layout';
 import Main from 'pages/Main/Main';
 import LoginForm from 'pages/Login/Login';
@@ -17,7 +15,7 @@ import UserProfile from 'pages/UserProfile/UserProfile';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/index.scss';
-import { productService } from 'api/services/ProductService';
+import Cart from 'pages/Cart/Cart';
 
 const router = createBrowserRouter([
   {
@@ -46,14 +44,16 @@ const router = createBrowserRouter([
         path: 'user-profile',
         element: <UserProfile />,
       },
+      {
+        path: 'cart',
+        element: <Cart />,
+      },
     ],
   },
 ]);
 
-const data = { client, customerService, productService };
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <ApiContext.Provider value={data}>
+  <ApiContext.Provider value={dataContext}>
     <React.StrictMode>
       <RouterProvider router={router} />
       <ToastContainer />
