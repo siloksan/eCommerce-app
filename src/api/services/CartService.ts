@@ -14,26 +14,20 @@ class CartService {
 
   cartVersion: null | string = null;
 
-  constructor() {
-    this.checkIfCartExist().then((res) => {
-      if (!res) this.createCart();
-    });
-  }
-
   public async getCart() {
+    if (!this.cartId) {
+      return this.createCart();
+    }
     const cart = await this.client.apiRoot
       .me()
-      .carts()
+      .activeCart()
       .get()
       .execute()
       .then((res) => {
-        if (res.statusCode === 200 && res.body.count > 0) {
-          const { id, version } = res.body.results[0];
-          this.setCartData(id, Cart.cartId);
-          this.setCartData(version.toString(), Cart.cartVersion);
-          return res.body.results[0];
-        }
-        return this.createCart();
+        const { id, version } = res.body;
+        this.setCartData(id, Cart.cartId);
+        this.setCartData(version.toString(), Cart.cartVersion);
+        return res.body;
       })
       .catch((err) => {
         toast.error(err);
@@ -41,32 +35,31 @@ class CartService {
     return cart;
   }
 
-  public createCart() {
-    this.client.apiRoot
+  public async createCart() {
+    const cart = await this.client.apiRoot
       .me()
       .carts()
       .post({ body: { currency: 'EUR' } })
       .execute()
       .then((res) => {
-        if (res.statusCode !== 200) {
-          throw new Error("I'm sorry, but something went wrong and we were unable to create a cart for you.");
-        }
         const { id, version } = res.body;
         this.setCartData(id, Cart.cartId);
         this.setCartData(version.toString(), Cart.cartVersion);
         return res.body;
       })
       .catch((err) => toast.error(err));
+    if (typeof cart !== 'string' && typeof cart !== 'number') return cart;
+    return false;
   }
 
   public async checkIfCartExist() {
     const isExist = await this.client.apiRoot
       .me()
-      .carts()
+      .activeCart()
       .get()
       .execute()
       .then((res) => {
-        return res.body.count > 0;
+        return res.statusCode === 200;
       })
       .catch((err) => {
         toast.error(err);

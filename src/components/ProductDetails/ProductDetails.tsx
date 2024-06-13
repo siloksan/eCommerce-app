@@ -14,48 +14,54 @@ interface Props {
   id: string;
 }
 
-function ProductDetails({ name = '', prices, description = '', id }: Props) {
+function ProductDetails({ name = '', prices, description = '', id: productId }: Props) {
   const { price, currencyCode } = prices[0];
   let discountedPrice: string | undefined;
   if (prices[1]) {
     discountedPrice = prices[1].price;
   }
   const { cartService } = useApiContext();
-  const { setCart } = useCartContext();
+  const { setCartState, cart } = useCartContext();
 
   const [inCart, setInCart] = useState(false);
 
-  function addToShoppingCart(productId: string) {
-    cartService.addToCart(productId).then((res) => {
-      if (res) {
-        setInCart(true);
-        cartService.getCart().then((cart) => {
-          if (cart) setCart(cart);
-        });
+  async function updateCart(id: string, action: 'remove' | 'add') {
+    let res: string | number | boolean;
+    if (action === 'add') {
+      res = await cartService.addToCart(id);
+    } else {
+      res = await cartService.removeFromCart(id);
+    }
+    if (res) {
+      const newCart = await cartService.getCart();
+      if (newCart) {
+        setCartState(newCart);
+        setInCart(action === 'add');
       }
-    });
+    }
   }
 
-  function removeFromShoppingCart(productId: string) {
-    cartService.removeFromCart(productId).then((res) => {
-      if (res) {
-        setInCart(false);
-        cartService.getCart().then((cart) => {
-          if (cart) setCart(cart);
-        });
-      }
-    });
+  async function addToShoppingCart() {
+    if (!cart) {
+      await cartService.createCart();
+    }
+    await updateCart(productId, 'add');
+  }
+
+  async function removeFromShoppingCart() {
+    if (!cart) {
+      await cartService.createCart();
+    }
+    await updateCart(productId, 'remove');
   }
 
   useEffect(() => {
-    cartService.getCart().then((cart) => {
-      if (cart) {
-        cart.lineItems.forEach((product) => {
-          if (product.productId === id) setInCart(true);
-        });
-      }
-    });
-  }, [cartService, id]);
+    if (cart) {
+      cart.lineItems.forEach((product) => {
+        if (product.productId === productId) setInCart(true);
+      });
+    }
+  }, [cart, productId]);
 
   return (
     <div className={styles.container}>
@@ -68,9 +74,9 @@ function ProductDetails({ name = '', prices, description = '', id }: Props) {
         <p className={styles.description}>{description}</p>
       </div>
       {inCart ? (
-        <Button label="Remove from cart" handleClick={() => removeFromShoppingCart(id)} />
+        <Button label="Remove from cart" handleClick={() => removeFromShoppingCart()} />
       ) : (
-        <Button label="Add to cart" handleClick={() => addToShoppingCart(id)} />
+        <Button label="Add to cart" handleClick={() => addToShoppingCart()} />
       )}
     </div>
   );

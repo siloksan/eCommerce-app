@@ -3,8 +3,7 @@ import classes from './Pagination.module.scss';
 interface PaginationProps {
   productsPerPage: number;
   length: number;
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  paginationHandler: Function;
+  paginationHandler: (page: number) => void;
   currentPage: number;
 }
 
