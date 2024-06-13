@@ -21,7 +21,7 @@ function ProductDetails({ name = '', prices, description = '', id }: Props) {
     discountedPrice = prices[1].price;
   }
   const { cartService } = useApiContext();
-  const { setCart } = useCartContext();
+  const { setCartState } = useCartContext();
 
   const [inCart, setInCart] = useState(false);
 
@@ -30,7 +30,7 @@ function ProductDetails({ name = '', prices, description = '', id }: Props) {
       if (res) {
         setInCart(true);
         cartService.getCart().then((cart) => {
-          if (cart) setCart(cart);
+          if (cart) setCartState(cart);
         });
       }
     });
@@ -41,7 +41,7 @@ function ProductDetails({ name = '', prices, description = '', id }: Props) {
       if (res) {
         setInCart(false);
         cartService.getCart().then((cart) => {
-          if (cart) setCart(cart);
+          if (cart) setCartState(cart);
         });
       }
     });

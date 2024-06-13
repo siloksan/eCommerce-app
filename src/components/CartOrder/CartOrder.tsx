@@ -16,13 +16,13 @@ function CartOrder({ totalPrice, productsCount, totalPriceWithoutDiscount }: Pro
   const { centAmount, currencyCode } = totalPrice;
   const price = centAmount / 100;
 
-  const { setCart } = useCartContext();
+  const { setCartState } = useCartContext();
   const { cartService } = useApiContext();
 
   function clearShoppingCart() {
     cartService.removeAllGoods().then(() => {
       cartService.getCart().then((cart) => {
-        if (cart) setCart(cart);
+        if (cart) setCartState(cart);
       });
     });
   }

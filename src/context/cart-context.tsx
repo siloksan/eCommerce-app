@@ -1,10 +1,9 @@
 import { Cart } from '@commercetools/platform-sdk';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import useApiContext from './context';
 
 interface ContextType {
   cart: Cart | null;
-  setCart: React.Dispatch<React.SetStateAction<Cart | null>>;
+  setCartState: (newCart: Cart) => void;
   quantity: number;
 }
 interface Props {
@@ -13,8 +12,6 @@ interface Props {
 const CartContext = createContext<ContextType | null>(null);
 
 export function CartProvider({ children }: Props) {
-  const { cartService } = useApiContext();
-
   const [cart, setCart] = useState<Cart | null>(null);
   const [quantity, setQuantity] = useState(0);
 
@@ -25,13 +22,13 @@ export function CartProvider({ children }: Props) {
     }
   }, [cart]);
 
-  useEffect(() => {
-    cartService.getCart().then((res) => {
-      if (res) setCart(res);
-    });
-  }, [cartService]);
+  function setCartState(newCart: Cart) {
+    setCart(newCart);
+    const count = newCart.lineItems.reduce((acc, item) => acc + item.quantity, 0);
+    setQuantity(count);
+  }
 
-  const value = useMemo(() => ({ cart, setCart, quantity }), [cart, quantity]);
+  const value = useMemo(() => ({ cart, setCartState, quantity }), [cart, quantity]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

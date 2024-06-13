@@ -14,24 +14,18 @@ class CartService {
 
   cartVersion: null | string = null;
 
-  constructor() {
-    this.checkIfCartExist().then((res) => {
-      if (!res) this.createCart();
-    });
-  }
-
   public async getCart() {
     const cart = await this.client.apiRoot
       .me()
-      .carts()
+      .activeCart()
       .get()
       .execute()
       .then((res) => {
-        if (res.statusCode === 200 && res.body.count > 0) {
-          const { id, version } = res.body.results[0];
+        if (res.statusCode === 200) {
+          const { id, version } = res.body;
           this.setCartData(id, Cart.cartId);
           this.setCartData(version.toString(), Cart.cartVersion);
-          return res.body.results[0];
+          return res.body;
         }
         return this.createCart();
       })
@@ -62,11 +56,11 @@ class CartService {
   public async checkIfCartExist() {
     const isExist = await this.client.apiRoot
       .me()
-      .carts()
+      .activeCart()
       .get()
       .execute()
       .then((res) => {
-        return res.body.count > 0;
+        return res.statusCode === 200;
       })
       .catch((err) => {
         toast.error(err);

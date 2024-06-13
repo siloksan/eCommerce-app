@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import CustomLoader from 'shared/Loader/loader';
 
 import ProductBasket from 'components/ProductBasket/ProductBasket';
 
@@ -17,17 +16,17 @@ function CartPage() {
       toast.success('The shopping cart is empty');
     }
   }, [cart]);
+  let productsCount = 0;
 
   if (!cart) {
     return (
-      <div>
-        <CustomLoader />
+      <div className={styles.container}>
+        Check out our <Link to="/catalog">catalog</Link> to discover the best coffee you have ever tasted.
       </div>
     );
   }
 
   const { lineItems: products, totalPrice } = cart;
-  let productsCount = 0;
   let totalPriceWithoutDiscount = 0;
 
   const productList = products.map((product) => {

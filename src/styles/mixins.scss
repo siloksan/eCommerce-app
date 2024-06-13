@@ -6,7 +6,7 @@
   }
 }
 
-@mixin hover-shift($shift-size: 3px, $shadow-color: var(--color-shade)) {
+@mixin hover-active-shift($shift-size: 3px, $shadow-color: var(--color-shade)) {
   transition: 0.3s;
   &:hover {
     box-shadow: $shift-size $shift-size 0px 0px $shadow-color;
@@ -15,6 +15,14 @@
   &:active {
     box-shadow: -($shift-size) -3px 0px 0px var(--color-light);
     transform: translate(0, 0);
+  }
+}
+
+@mixin hover-shift($shift-size: 3px, $shadow-color: var(--color-shade)) {
+  transition: 0.3s;
+  &:hover {
+    box-shadow: $shift-size $shift-size 0px 0px $shadow-color;
+    transform: translate(-($shift-size), -($shift-size));
   }
 }
 
@@ -36,7 +44,7 @@
   font-size: $font-size;
   font-weight: 700;
   color: var(--color-base-text);
-  @include hover-shift();
+  @include hover-active-shift();
 
   @if $accent {
     @include button--accent;
