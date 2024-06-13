@@ -4,11 +4,15 @@ import Price from 'components/Price/Price';
 import textTailoring from 'utils/helpers/textTailoring';
 
 import Button from 'shared/Button/Button';
+import { useCartContext } from 'context/cart-context';
+import { useEffect, useState } from 'react';
+import useApiContext from 'context/context';
 import classes from './ProductCard.module.scss';
 
 interface ProductCardProps {
   productKey: string;
   productName: string;
+  productId: string;
   currency: string;
   price: number;
   discountedPrice?: number;
@@ -24,12 +28,13 @@ function ProductCard({
   discountedPrice,
   imgLink,
   description,
+  productId,
 }: ProductCardProps) {
   const MAX_CHAR_NAME = 40; // max characters for name on the card
   const MAX_CHAR_DESCRIPTION = 100; // max characters for description
 
-  // const { setCartState } = useCartContext();
-  // const { cartService } = useApiContext();
+  const { setCartState, cart } = useCartContext();
+  const { cartService } = useApiContext();
 
   const img = imgLink ?? productImgPlaceholder;
 
@@ -38,6 +43,46 @@ function ProductCard({
   if (discountedPrice) Object.assign(priceInfo, { discountedPrice });
 
   const cardDescription = description ? textTailoring(description, MAX_CHAR_DESCRIPTION) : '';
+
+  const [inCart, setInCart] = useState(false);
+
+  async function updateCart(id: string, action: 'remove' | 'add') {
+    let res: string | number | boolean;
+    if (action === 'add') {
+      res = await cartService.addToCart(id);
+    } else {
+      res = await cartService.removeFromCart(id);
+    }
+    if (res) {
+      const newCart = await cartService.getCart();
+      if (newCart) {
+        setCartState(newCart);
+        setInCart(action === 'add');
+      }
+    }
+  }
+
+  async function addToShoppingCart() {
+    if (!cart) {
+      await cartService.createCart();
+    }
+    await updateCart(productId, 'add');
+  }
+
+  async function removeFromShoppingCart() {
+    if (!cart) {
+      await cartService.createCart();
+    }
+    await updateCart(productId, 'remove');
+  }
+
+  useEffect(() => {
+    if (cart) {
+      cart.lineItems.forEach((product) => {
+        if (product.productId === productId) setInCart(true);
+      });
+    }
+  }, [cart, productId]);
 
   return (
     <div className={classes.card}>
@@ -49,7 +94,11 @@ function ProductCard({
         <p>{cardDescription}</p>
         <Price {...priceInfo} />
       </Link>
-      <Button label="Add to cart" />
+      {inCart ? (
+        <Button label="Remove from cart" handleClick={() => removeFromShoppingCart()} />
+      ) : (
+        <Button label="Add to cart" handleClick={() => addToShoppingCart()} />
+      )}
     </div>
   );
 }
