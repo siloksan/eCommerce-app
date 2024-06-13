@@ -30,7 +30,7 @@ const teamMembers = [
     name: 'Andrey',
     role: 'Frontend Developer',
     bio: 'Andrey is a seasoned front-end developer. He specializes in creating responsive and interactive web applications that enhance user experience.',
-    collaboration:
+    contributions:
       'Andrey collaborates with designers to implement seamless user interfaces. He participates in regular code reviews and provides constructive feedback to his peers.',
     github: 'https://github.com/0404233',
     photo: Andrey,
@@ -62,9 +62,6 @@ function AboutUs() {
                 </p>
                 <p>
                   <strong>Contributions:</strong> {member.contributions}
-                </p>
-                <p>
-                  <strong>Collaboration Methods:</strong> {member.collaboration}
                 </p>
                 <a href={member.github} target="_blank" rel="noopener noreferrer">
                   GitHub Profile
