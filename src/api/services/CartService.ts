@@ -21,7 +21,7 @@ class CartService {
   }
 
   public async getCart() {
-    const cart = await client.apiRoot
+    const cart = await this.client.apiRoot
       .me()
       .carts()
       .get()
@@ -42,7 +42,7 @@ class CartService {
   }
 
   public createCart() {
-    client.apiRoot
+    this.client.apiRoot
       .me()
       .carts()
       .post({ body: { currency: 'EUR' } })
@@ -60,7 +60,7 @@ class CartService {
   }
 
   public async checkIfCartExist() {
-    const isExist = await client.apiRoot
+    const isExist = await this.client.apiRoot
       .me()
       .carts()
       .get()
@@ -97,7 +97,7 @@ class CartService {
       ],
     };
 
-    const result = await client.apiRoot
+    const result = await this.client.apiRoot
       .me()
       .carts()
       .withId({
@@ -153,7 +153,7 @@ class CartService {
       myCartUpdate.actions.push(actionRemoveLine);
     }
 
-    const result = await client.apiRoot
+    const result = await this.client.apiRoot
       .me()
       .carts()
       .withId({
@@ -200,7 +200,42 @@ class CartService {
       myCartUpdate.actions.push(actionRemoveLine);
     });
 
-    const result = await client.apiRoot
+    const result = await this.client.apiRoot
+      .me()
+      .carts()
+      .withId({
+        ID: this.cartId,
+      })
+      .post({ body: myCartUpdate })
+      .execute()
+      .then((res) => {
+        if (res.statusCode === 200) {
+          const { version } = res.body;
+          this.setCartData(version.toString(), Cart.cartVersion);
+          return true;
+        }
+        return false;
+      })
+      .catch((err) => toast.error(err));
+    return result;
+  }
+
+  public async addDiscountCode(discountCode: string) {
+    if (!this.cartId || !this.cartVersion) {
+      toast.error("I'm sorry, but the cart ID or cart version does not exist.");
+      return false;
+    }
+
+    const myCartUpdate: MyCartUpdate = {
+      version: Number(this.cartVersion),
+      actions: [
+        {
+          action: 'addDiscountCode',
+          code: discountCode,
+        },
+      ],
+    };
+    const result = await this.client.apiRoot
       .me()
       .carts()
       .withId({

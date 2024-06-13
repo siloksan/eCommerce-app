@@ -1,6 +1,4 @@
 import { useEffect } from 'react';
-// import { Cart } from '@commercetools/platform-sdk';
-// import useApiContext from 'context/context';
 import CustomLoader from 'shared/Loader/loader';
 
 import ProductBasket from 'components/ProductBasket/ProductBasket';
@@ -30,8 +28,10 @@ function CartPage() {
 
   const { lineItems: products, totalPrice } = cart;
   let productsCount = 0;
+  let totalPriceWithoutDiscount = 0;
 
   const productList = products.map((product) => {
+    totalPriceWithoutDiscount += (product.price.value.centAmount * product.quantity) / 100;
     productsCount += product.quantity;
     return <ProductBasket product={product} key={product.id} />;
   });
@@ -53,7 +53,11 @@ function CartPage() {
           <ul className={styles.list}>{productList}</ul>
         </section>
         <section className={styles.section}>
-          <CartOrder totalPrice={totalPrice} productsCount={productsCount} />
+          <CartOrder
+            totalPrice={totalPrice}
+            productsCount={productsCount}
+            totalPriceWithoutDiscount={totalPriceWithoutDiscount}
+          />
         </section>
       </div>
     </div>

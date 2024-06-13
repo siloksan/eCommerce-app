@@ -1,5 +1,5 @@
 .container {
-  width: 260px;
+  width: 270px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -23,13 +23,7 @@
 
 .order_info {
   display: flex;
-  justify-content: space-between;
+  align-items: end;
   font-size: 1.4rem;
+  gap: 10px;
 }
-// .order_btn {
-//   align-self: center;
-// }
-
-// .remove_btn {
-//   align-self: center;
-// }
