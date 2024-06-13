@@ -31,7 +31,7 @@ function ProductBasket({ product }: Props) {
     image = variant.images[0].url;
   }
 
-  const { setCart } = useCartContext();
+  const { setCartState } = useCartContext();
   const { cartService } = useApiContext();
 
   const [quantity, setQuantity] = useState(productQuantity);
@@ -49,20 +49,29 @@ function ProductBasket({ product }: Props) {
 
   function update() {
     const deltaQuantity = quantity - prevQuantity;
+    if (deltaQuantity === 0) return;
     if (deltaQuantity > 0) {
       cartService.addToCart(productId, deltaQuantity).then(() =>
         cartService.getCart().then((newCart) => {
-          if (newCart) setCart(newCart);
+          if (newCart) setCartState(newCart);
         })
       );
     } else {
       cartService.removeFromCart(productId, deltaQuantity * -1).then(() =>
         cartService.getCart().then((newCart) => {
-          if (newCart) setCart(newCart);
+          if (newCart) setCartState(newCart);
         })
       );
     }
     setPrevQuantity(quantity);
+  }
+
+  function removeAllQuantity() {
+    cartService.removeFromCart(productId, prevQuantity).then(() =>
+      cartService.getCart().then((newCart) => {
+        if (newCart) setCartState(newCart);
+      })
+    );
   }
 
   return (
@@ -103,7 +112,7 @@ function ProductBasket({ product }: Props) {
           handleClick={() => update()}
         />
         <div>
-          <Button label={trashBtn} />
+          <Button label={trashBtn} handleClick={() => removeAllQuantity()} />
         </div>
       </div>
     </li>

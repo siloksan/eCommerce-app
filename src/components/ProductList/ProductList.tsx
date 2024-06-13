@@ -12,7 +12,7 @@ function ProductList({ products }: ProductListProps) {
   return (
     <div className={classes.products}>
       {products.map((product) => {
-        const { masterVariant } = product;
+        const { masterVariant, id } = product;
         const img = masterVariant.images ? masterVariant.images[0].url : '';
 
         let currencyCode = 'EUR';
@@ -39,6 +39,7 @@ function ProductList({ products }: ProductListProps) {
             imgLink={img}
             description={description}
             discountedPrice={discountedPrice}
+            productId={id}
           />
         );
       })}

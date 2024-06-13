@@ -9,7 +9,7 @@ import styles from './Main.module.scss';
 
 function Main() {
   const { customerService, client } = useApiContext();
-  const { setCart } = useCartContext();
+  const { setCartState } = useCartContext();
   const { cartService } = useApiContext();
   const [promo, setPromo] = useState('');
 
@@ -25,7 +25,7 @@ function Main() {
     cartService.addDiscountCode(code).then((res) => {
       if (res === true) {
         cartService.getCart().then((cart) => {
-          if (cart) setCart(cart);
+          if (cart) setCartState(cart);
         });
         client.storageController.setItem('promo', code);
         toast.success('The promo code is active!');

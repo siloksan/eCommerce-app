@@ -3,7 +3,9 @@
 .card {
   @include link-reset;
   @include hover-shift(5px, var(--color-accent));
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 300px;
   padding: 10px;
   text-align: center;

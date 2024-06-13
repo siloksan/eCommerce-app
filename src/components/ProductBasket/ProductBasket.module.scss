@@ -7,13 +7,33 @@
   background-color: var(--color-soft);
   justify-content: space-between;
   gap: 20px;
+  @include media-medium-desktop {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 }
 
 .image {
+  flex: 0 0 200px;
+  height: 250px;
+  @include media-medium-desktop {
+    flex: 0 0 180px;
+  }
+  @include media-tablet {
+    min-width: 100%;
+    position: relative;
+  }
   & img {
-    height: 200px;
-    width: 250px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 1rem;
+    @include media-tablet {
+      position: absolute;
+      max-width: 260px;
+      top: 0;
+      left: calc(50% - 130px);
+    }
   }
 }
 
@@ -21,11 +41,13 @@
   display: flex;
   flex-direction: column;
   align-self: flex-start;
-  width: 200px;
+  max-width: 200px;
   align-self: auto;
-  & > *:not(:last-child) {
-    margin-bottom: 20px;
-    max-width: max-content;
+  gap: 20px;
+  @include media-medium-desktop {
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 150px;
   }
   & > *:nth-child(2) {
     margin-top: 20px;
@@ -43,14 +65,23 @@
   align-self: stretch;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
+  @include media-medium-desktop {
+    flex-direction: row;
+    width: 100%;
+  }
+  @include media-tablet {
+    flex-direction: column;
+  }
 }
 
 .quantity_container {
   display: flex;
   align-self: center;
   font-size: 2rem;
-  & > *:not(:last-child) {
-    margin-right: 6px;
+  gap: 6px;
+  @include media-tablet {
+    font-size: 1.6rem;
   }
 }
 
@@ -59,11 +90,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 0.8rem 0.8rem;
   border: 2px solid var(--color-dark);
   border-radius: 1rem;
-  & > * {
-    align-self: center;
+  @include media-tablet {
+    padding: 0 0.3rem 0.3rem;
   }
 }
 
