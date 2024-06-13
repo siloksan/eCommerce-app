@@ -1,0 +1,38 @@
+.promo {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  h2 {
+    font-size: 3rem;
+  }
+}
+
+.description {
+  font-size: 1.4rem;
+  font-weight: 600;
+  span {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+}
+
+.promo_code {
+  font-size: 1.4rem;
+  font-weight: 600;
+  span {
+    margin-left: 20px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}

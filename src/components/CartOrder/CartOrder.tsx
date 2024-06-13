@@ -1,19 +1,19 @@
 import Button from 'shared/Button/Button';
 
-import currencyCodeToSymbol from 'utils/helpers/currencyCodeToSymbol';
 import { CentPrecisionMoney } from '@commercetools/platform-sdk';
 import { useCartContext } from 'context/cart-context';
 import useApiContext from 'context/context';
+import Price from 'components/Price/Price';
 import styles from './CartOrder.module.scss';
 
 interface Props {
   totalPrice: CentPrecisionMoney;
   productsCount: number;
+  totalPriceWithoutDiscount: number;
 }
 
-function CartOrder({ totalPrice, productsCount }: Props) {
+function CartOrder({ totalPrice, productsCount, totalPriceWithoutDiscount }: Props) {
   const { centAmount, currencyCode } = totalPrice;
-  const currencySymbol = currencyCodeToSymbol(currencyCode);
   const price = centAmount / 100;
 
   const { setCart } = useCartContext();
@@ -37,10 +37,10 @@ function CartOrder({ totalPrice, productsCount }: Props) {
         <h2>Your shopping cart:</h2>
         <div className={styles.order_info}>
           <div>
-            Products <span>({productsCount})</span>
+            Products <span>({productsCount}):</span>
           </div>
           <div>
-            {price} <span>{currencySymbol}</span>
+            <Price price={totalPriceWithoutDiscount} currency={currencyCode} discountedPrice={price} />
           </div>
         </div>
       </div>
