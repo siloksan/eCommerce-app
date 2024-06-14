@@ -3,6 +3,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './AboutUs.module.scss';
 import Andrey from '../../assets/imgs/Andrey.jpg';
+import Eugeniy from '../../assets/imgs/Eugeniy.jpg';
 
 const teamMembers = [
   {
@@ -13,7 +14,7 @@ const teamMembers = [
     contributions:
       'Eugene has contributed to both frontend and backend development, ensuring smooth integration between the two.',
     github: 'https://github.com/siloksan',
-    photo: Andrey,
+    photo: Eugeniy,
   },
   {
     id: 2,
