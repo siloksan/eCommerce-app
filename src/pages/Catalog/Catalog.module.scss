@@ -1,0 +1,18 @@
+.heading {
+  text-align: center;
+  font-size: 30px;
+  position: relative;
+  &::first-letter {
+    color: var(--color-accent)
+  }
+  &::after {
+    position: absolute;
+    content: '';
+    width: 30px;
+    height: 2px;
+    background-color: var(--color-accent);
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

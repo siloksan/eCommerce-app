@@ -1,0 +1,35 @@
+@use 'src/styles/mixins.scss' as *;
+
+.header {
+  padding: 10px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon {
+  @include link-reset;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-right: 15px;
+  position: relative;
+  @include media-tablet {
+    margin-right: 0;
+  }
+}
+
+.quantity {
+  background-color: var(--color-modify);
+  border: 2px solid var(--color-dark);
+  font-size: 2rem;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  border-radius: 50%;
+  padding: 5px;
+  line-height: 0.7;
+  z-index: 10;
+  @include media-tablet {
+    font-size: 1.4rem;
+  }
+}
