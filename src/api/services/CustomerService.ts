@@ -3,6 +3,7 @@ import { FormData } from 'components/RegistrationForm/RegistrationForm';
 import { toast } from 'react-toastify';
 import { CustomerDraft, SerializedAddress, UserAuthData } from 'types/customer-interfaces';
 import UserStatus from 'types/types';
+// import { type CartService, cartService } from './CartService';
 
 interface SelectedAddress {
   shipping: boolean;
@@ -23,6 +24,8 @@ class CustomerService {
 
   public userAuthorized: boolean = false;
 
+  // private cartService: CartService = cartService;
+
   constructor() {
     if (UserStatus.registered === this.client.storageController.getUserStatus()) this.userAuthorized = true;
   }
@@ -33,6 +36,9 @@ class CustomerService {
       return false;
     }
     this.client.setApiRoot(userAuthData);
+    // if (cartService.cartId) {
+    //   client.apiRoot.me().carts().
+    // }
     const response = await client.apiRoot
       .me()
       .get()
