@@ -20,4 +20,9 @@ export type User = {
   addresses: Address[];
 };
 
+export enum Cart {
+  cartId = 'cartId',
+  cartVersion = 'cartVersion',
+}
+
 export default UserStatus;

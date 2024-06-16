@@ -1,11 +1,7 @@
 import { MyCartUpdate, MyCartUpdateAction } from '@commercetools/platform-sdk';
 import { type Client, client } from 'api/client/client';
 import { toast } from 'react-toastify';
-
-enum Cart {
-  cartId = 'cartId',
-  cartVersion = 'cartVersion',
-}
+import { Cart } from 'types/types';
 
 class CartService {
   client: Client = client;
@@ -77,7 +73,7 @@ class CartService {
     return isExist;
   }
 
-  private setCartData(data: string, key: Cart) {
+  public setCartData(data: string, key: Cart) {
     this[key] = data;
     this.client.storageController.setItem(key, data);
   }

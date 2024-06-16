@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useApiContext from 'context/context';
 
+import { useCartContext } from 'context/cart-context';
 import classes from './RegistrationForm.module.scss';
 
 // определяю структуру для полей регистрациии
@@ -42,7 +43,7 @@ function RegistrationForm() {
   const navigate = useNavigate();
 
   const { customerService } = useApiContext();
-
+  const { setCartState } = useCartContext();
   /* для отслеживания состояния какой из адрессов будет применён как общий для доставки и выставления счёта.
   если один из них false, то со значением true будет общий адресс.
   */
@@ -70,7 +71,10 @@ function RegistrationForm() {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const success = await customerService.signUp(data, address);
-    if (success) navigate('/');
+    if (success) {
+      setCartState(null);
+      navigate('/');
+    }
   };
 
   return (
