@@ -11,6 +11,7 @@ import Catalog from 'pages/Catalog/Catalog';
 import NotFoundPage from 'pages/NotFound/NotFound';
 import ProductPage from 'pages/Product/Product';
 import UserProfile from 'pages/UserProfile/UserProfile';
+import AboutUs from 'pages/AboutUs/AboutUs';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/index.scss';
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: 'cart',
         element: <Cart />,
+      },
+      {
+        path: 'about_us',
+        element: <AboutUs />,
       },
     ],
   },
