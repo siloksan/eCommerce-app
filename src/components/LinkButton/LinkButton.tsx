@@ -6,18 +6,22 @@ interface LinkButtonProps {
   text: string;
   link: string;
   accent: boolean;
+  additionalClass?: CSSModuleClasses[string];
 }
 
-function LinkButton({ text, link, accent }: LinkButtonProps) {
+function LinkButton({ text, link, accent, additionalClass }: LinkButtonProps) {
+  let className = styles.button;
+
   if (accent) {
-    return (
-      <Link to={link} className={`${styles.button} ${styles.buttonAccent}`}>
-        {text}
-      </Link>
-    );
+    className += `  ${styles.buttonAccent}`;
   }
+
+  if (additionalClass) {
+    className += `  ${additionalClass}`;
+  }
+
   return (
-    <Link to={link} className={styles.button}>
+    <Link to={link} className={className}>
       {text}
     </Link>
   );

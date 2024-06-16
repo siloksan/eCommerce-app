@@ -1,3 +1,5 @@
+@use 'src/styles/mixins.scss' as *;
+
 .promo {
   margin-top: 100px;
   display: flex;
@@ -6,12 +8,18 @@
   gap: 10px;
   h2 {
     font-size: 3rem;
+    @include media-tablet {
+      font-size: 2rem;
+    }
   }
 }
 
 .description {
   font-size: 1.4rem;
   font-weight: 600;
+  @include media-tablet {
+    font-size: 1rem;
+  }
   span {
     font-size: 2rem;
     font-weight: 800;
@@ -26,6 +34,10 @@
     font-size: 2rem;
     font-weight: 700;
     color: var(--color-accent);
+    @include media-tablet {
+      display: block;
+      font-size: 1.2rem;
+    }
   }
 }
 

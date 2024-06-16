@@ -14,6 +14,15 @@ class CartService {
 
   cartVersion: null | string = null;
 
+  constructor() {
+    this.cartId = this.getCartData(Cart.cartId);
+    this.cartId = this.getCartData(Cart.cartVersion);
+  }
+
+  private getCartData(key: string): null | string {
+    return this.client.storageController.getItem(key);
+  }
+
   public async getCart() {
     if (!this.cartId) {
       return this.createCart();
@@ -71,6 +80,13 @@ class CartService {
   private setCartData(data: string, key: Cart) {
     this[key] = data;
     this.client.storageController.setItem(key, data);
+  }
+
+  public clearCartData() {
+    this.cartId = null;
+    this.cartVersion = null;
+    this.client.storageController.removeItem(Cart.cartId);
+    this.client.storageController.removeItem(Cart.cartVersion);
   }
 
   public async addToCart(id: string, quantity: number = 1) {

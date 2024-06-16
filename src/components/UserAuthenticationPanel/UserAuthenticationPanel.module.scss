@@ -1,4 +1,13 @@
+@use 'src/styles/mixins.scss' as *;
+
 .panel {
   display: flex;
   gap: 30px;
+}
+
+.button {
+  @include media-tablet {
+    font-size: .8rem;
+    padding: 4px;
+  }
 }
