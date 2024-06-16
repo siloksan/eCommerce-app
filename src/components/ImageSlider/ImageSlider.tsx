@@ -29,6 +29,14 @@ function ImageSlider({ images = imagesPlaceholder, alt = '' }: Props) {
     );
   });
 
+  if (images.length === 1) {
+    return (
+      <div className={styles.container}>
+        <img src={images[0]} alt={alt} />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <Swiper

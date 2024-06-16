@@ -2,7 +2,8 @@ import { type Client, client } from 'api/client/client';
 import { FormData } from 'components/RegistrationForm/RegistrationForm';
 import { toast } from 'react-toastify';
 import { CustomerDraft, SerializedAddress, UserAuthData } from 'types/customer-interfaces';
-import UserStatus from 'types/types';
+import UserStatus, { Cart } from 'types/types';
+import { type CartService, cartService } from './CartService';
 
 interface SelectedAddress {
   shipping: boolean;
@@ -23,6 +24,8 @@ class CustomerService {
 
   public userAuthorized: boolean = false;
 
+  private cartService: CartService = cartService;
+
   constructor() {
     if (UserStatus.registered === this.client.storageController.getUserStatus()) this.userAuthorized = true;
   }
@@ -32,6 +35,35 @@ class CustomerService {
       toast.error("You've already authorized!");
       return false;
     }
+    const body = {
+      email: userAuthData.username,
+      password: userAuthData.password,
+    };
+    if (cartService.cartId) {
+      Object.assign(body, {
+        anonymousCartSignInMode: 'MergeWithExistingCustomerCart',
+        updateProductData: true,
+      });
+      await client.apiRoot
+        .me()
+        .login()
+        .post({ body })
+        .execute()
+        .then((res) => {
+          if (res.statusCode === 200) {
+            const { cart } = res.body;
+            if (cart) {
+              this.cartService.setCartData(cart.version.toString(), Cart.cartVersion);
+              this.cartService.setCartData(cart.id.toString(), Cart.cartId);
+            }
+            this.client.storageController.setUserStatus(UserStatus.registered);
+          }
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    }
+
     this.client.setApiRoot(userAuthData);
     const response = await client.apiRoot
       .me()

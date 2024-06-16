@@ -5,6 +5,7 @@ import LoginFormFields from 'components/LoginForm/LoginForm';
 import useApiContext from 'context/context';
 
 import { Link, useNavigate } from 'react-router-dom';
+import { useCartContext } from 'context/cart-context';
 import classes from './Login.module.scss';
 
 type FormValues = {
@@ -15,7 +16,8 @@ type FormValues = {
 function LoginForm() {
   const methods = useForm<FormValues>();
 
-  const { customerService } = useApiContext();
+  const { customerService, cartService } = useApiContext();
+  const { setCartState } = useCartContext();
 
   const navigate = useNavigate();
 
@@ -25,6 +27,8 @@ function LoginForm() {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const isAuthorized = await customerService.signIn({ username: data.email, password: data.password });
     if (isAuthorized) {
+      const cart = await cartService.getCart();
+      if (cart) setCartState(cart);
       setRedirectToMain(true);
       navigate('/');
     }

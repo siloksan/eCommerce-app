@@ -1,11 +1,7 @@
 import { MyCartUpdate, MyCartUpdateAction } from '@commercetools/platform-sdk';
 import { type Client, client } from 'api/client/client';
 import { toast } from 'react-toastify';
-
-enum Cart {
-  cartId = 'cartId',
-  cartVersion = 'cartVersion',
-}
+import { Cart } from 'types/types';
 
 class CartService {
   client: Client = client;
@@ -13,6 +9,15 @@ class CartService {
   cartId: null | string = null;
 
   cartVersion: null | string = null;
+
+  constructor() {
+    this.cartId = this.getCartData(Cart.cartId);
+    this.cartId = this.getCartData(Cart.cartVersion);
+  }
+
+  private getCartData(key: string): null | string {
+    return this.client.storageController.getItem(key);
+  }
 
   public async getCart() {
     if (!this.cartId) {
@@ -68,9 +73,16 @@ class CartService {
     return isExist;
   }
 
-  private setCartData(data: string, key: Cart) {
+  public setCartData(data: string, key: Cart) {
     this[key] = data;
     this.client.storageController.setItem(key, data);
+  }
+
+  public clearCartData() {
+    this.cartId = null;
+    this.cartVersion = null;
+    this.client.storageController.removeItem(Cart.cartId);
+    this.client.storageController.removeItem(Cart.cartVersion);
   }
 
   public async addToCart(id: string, quantity: number = 1) {

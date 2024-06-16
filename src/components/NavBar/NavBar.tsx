@@ -14,7 +14,7 @@ export default function NavBar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.dropdown_btn}>
-        <Button label="☰" accent={false} handleClick={toggleDropdown} />
+        <Button label={dropdownOpen ? 'X' : '☰'} accent={false} handleClick={toggleDropdown} />
       </div>
       <ul className={`${styles.list} ${dropdownOpen ? styles.open : ''}`}>
         <li className={styles.item} onClick={toggleDropdown}>

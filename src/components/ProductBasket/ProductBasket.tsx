@@ -84,6 +84,7 @@ function ProductBasket({ product }: Props) {
         <Price currency={currencyCode} price={centAmount / 100} discountedPrice={discountedPrice} />
       </div>
       <div className={styles.totalPrice}>
+        <div>Total Price:</div>
         <Price currency={currencyCode} price={baseCentAmountTotal} discountedPrice={discountedPriceTotal} />
       </div>
       <div className={styles.controller}>

@@ -30,6 +30,10 @@ class StorageController {
   public getItem(key: string): null | string {
     return this.storage.getItem(key);
   }
+
+  public removeItem(key: string): void {
+    this.storage.removeItem(key);
+  }
 }
 
 export default StorageController;
