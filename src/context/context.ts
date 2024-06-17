@@ -1,13 +1,17 @@
-import { type Client } from 'api/client/client';
-import { type CustomerService } from 'api/services/CustomerService';
-import { type ProductService } from 'api/services/ProductService';
+import { client, type Client } from 'api/client/client';
+import { cartService, CartService } from 'api/services/CartService';
+import { customerService, type CustomerService } from 'api/services/CustomerService';
+import { productService, type ProductService } from 'api/services/ProductService';
 import { createContext, useContext } from 'react';
 
 interface ContextType {
   client: Client;
   customerService: CustomerService;
   productService: ProductService;
+  cartService: CartService;
 }
+
+export const dataContext = { client, customerService, productService, cartService };
 
 export const ApiContext = createContext<ContextType | null>(null);
 

@@ -1,14 +1,16 @@
-import { Price, Product as ProductResponse, Image } from '@commercetools/platform-sdk';
-import Product from 'types/product-interfaces';
+import { Product as ProductResponse, Image, Price, DiscountedPrice } from '@commercetools/platform-sdk';
+import { Product, ProductPrice } from 'types/product-interfaces';
 
 class FormatProductData {
   public serializeProductData(product: ProductResponse) {
+    const { id } = product;
     const { name, description, masterVariant, variants } = product.masterData.current;
     const { images } = masterVariant;
     const title = name['en-GB'];
-    const prices: string[] = [];
+    const prices: ProductPrice[] = [];
     const result: Product = {
       prices,
+      id,
     };
     result.prices = prices;
     if (title) {
@@ -21,18 +23,27 @@ class FormatProductData {
       result.description = description['en-GB'];
     }
     if (masterVariant.prices) {
-      prices.push(this.serializePrices(masterVariant.prices[0]));
+      this.addPrice(masterVariant.prices[0], prices);
+      if (masterVariant.prices[0].discounted) {
+        this.addPrice(masterVariant.prices[0].discounted, prices);
+      }
     }
     variants.forEach((variant) => {
       if (variant.price) {
-        prices.push(this.serializePrices(variant.price));
+        this.addPrice(variant.price, prices);
       }
     });
     return result;
   }
 
-  private serializePrices(price: Price): string {
-    return (price.value.centAmount / 100).toFixed(2);
+  private serializePrices(price: number): string {
+    return (price / 100).toFixed(2);
+  }
+
+  private addPrice(price: Price | DiscountedPrice, prices: ProductPrice[]) {
+    const centAmount = this.serializePrices(price.value.centAmount);
+    const { currencyCode } = price.value;
+    prices.push({ price: centAmount, currencyCode });
   }
 
   private getImagesUrl(images: Image[]): string[] {

@@ -1,11 +1,8 @@
 import ReactDOM from 'react-dom/client';
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import { client } from 'api/client/client';
-import { customerService } from 'api/services/CustomerService';
-import { ApiContext } from 'context/context';
+import { ApiContext, dataContext } from 'context/context';
 import Layout from 'layout/Layout';
 import Main from 'pages/Main/Main';
 import LoginForm from 'pages/Login/Login';
@@ -14,10 +11,11 @@ import Catalog from 'pages/Catalog/Catalog';
 import NotFoundPage from 'pages/NotFound/NotFound';
 import ProductPage from 'pages/Product/Product';
 import UserProfile from 'pages/UserProfile/UserProfile';
+import AboutUs from 'pages/AboutUs/AboutUs';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/index.scss';
-import { productService } from 'api/services/ProductService';
+import Cart from 'pages/Cart/Cart';
 
 const router = createBrowserRouter([
   {
@@ -46,17 +44,21 @@ const router = createBrowserRouter([
         path: 'user-profile',
         element: <UserProfile />,
       },
+      {
+        path: 'cart',
+        element: <Cart />,
+      },
+      {
+        path: 'about_us',
+        element: <AboutUs />,
+      },
     ],
   },
 ]);
 
-const data = { client, customerService, productService };
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <ApiContext.Provider value={data}>
-    <React.StrictMode>
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </React.StrictMode>
+  <ApiContext.Provider value={dataContext}>
+    <RouterProvider router={router} />
+    <ToastContainer />
   </ApiContext.Provider>
 );

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import ImageSlider from 'components/ImageSlider/ImageSlider';
 import ProductDetails from 'components/ProductDetails/ProductDetails';
 import useApiContext from 'context/context';
-import Product from 'types/product-interfaces';
+import { Product } from 'types/product-interfaces';
 
 import styles from './Product.module.scss';
 
@@ -31,7 +31,7 @@ function ProductPage() {
   return (
     <div className={styles.container}>
       <ImageSlider images={product.images} alt={product.title} />
-      <ProductDetails name={product.title} price={product.prices[0]} description={product.description} />
+      <ProductDetails name={product.title} prices={product.prices} description={product.description} id={product.id} />
     </div>
   );
 }

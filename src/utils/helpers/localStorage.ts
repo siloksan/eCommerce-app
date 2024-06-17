@@ -22,6 +22,18 @@ class StorageController {
   public removeUserStatus() {
     this.storage.removeItem(this.keyStatus);
   }
+
+  public setItem(key: string, data: string) {
+    this.storage.setItem(key, data);
+  }
+
+  public getItem(key: string): null | string {
+    return this.storage.getItem(key);
+  }
+
+  public removeItem(key: string): void {
+    this.storage.removeItem(key);
+  }
 }
 
 export default StorageController;

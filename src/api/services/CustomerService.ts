@@ -2,7 +2,8 @@ import { type Client, client } from 'api/client/client';
 import { FormData } from 'components/RegistrationForm/RegistrationForm';
 import { toast } from 'react-toastify';
 import { CustomerDraft, SerializedAddress, UserAuthData } from 'types/customer-interfaces';
-import UserStatus from 'types/types';
+import UserStatus, { Cart } from 'types/types';
+import { type CartService, cartService } from './CartService';
 
 interface SelectedAddress {
   shipping: boolean;
@@ -21,12 +22,48 @@ interface Address {
 class CustomerService {
   client: Client = client;
 
+  public userAuthorized: boolean = false;
+
+  private cartService: CartService = cartService;
+
+  constructor() {
+    if (UserStatus.registered === this.client.storageController.getUserStatus()) this.userAuthorized = true;
+  }
+
   public async signIn(userAuthData: UserAuthData) {
-    const isAuthorized = this.client.storageController.getUserStatus();
-    if (isAuthorized === UserStatus.registered) {
+    if (this.userAuthorized) {
       toast.error("You've already authorized!");
       return false;
     }
+    const body = {
+      email: userAuthData.username,
+      password: userAuthData.password,
+    };
+    if (cartService.cartId) {
+      Object.assign(body, {
+        anonymousCartSignInMode: 'MergeWithExistingCustomerCart',
+        updateProductData: true,
+      });
+      await client.apiRoot
+        .me()
+        .login()
+        .post({ body })
+        .execute()
+        .then((res) => {
+          if (res.statusCode === 200) {
+            const { cart } = res.body;
+            if (cart) {
+              this.cartService.setCartData(cart.version.toString(), Cart.cartVersion);
+              this.cartService.setCartData(cart.id.toString(), Cart.cartId);
+            }
+            this.client.storageController.setUserStatus(UserStatus.registered);
+          }
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    }
+
     this.client.setApiRoot(userAuthData);
     const response = await client.apiRoot
       .me()
@@ -37,6 +74,7 @@ class CustomerService {
           const firstName = JSON.stringify(res.body.firstName);
           toast(`Welcome to the Coffee Lovers ${firstName}`);
           client.storageController.setUserStatus(UserStatus.registered);
+          this.userAuthorized = true;
           return true;
         }
         return false;
@@ -48,8 +86,7 @@ class CustomerService {
   }
 
   public async signUp(data: FormData, selectedAddress: SelectedAddress) {
-    const isAuthorized = this.client.storageController.getUserStatus();
-    if (isAuthorized === UserStatus.registered) {
+    if (this.userAuthorized) {
       toast.error("You've already registered!");
       return false;
     }
@@ -81,12 +118,12 @@ class CustomerService {
   }
 
   public logOut() {
-    const isAuthorized = this.client.storageController.getUserStatus();
-    if (isAuthorized === UserStatus.registered) {
+    if (this.userAuthorized) {
       this.client.storageController.removeUserStatus();
       this.client.tokenCache.clearToken();
       this.client.setApiRoot();
       toast.success('Goodbye!');
+      this.userAuthorized = false;
     }
   }
 

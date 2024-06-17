@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
 import { ProductProjection } from '@commercetools/platform-sdk';
 
-import { client } from 'api/client/client';
+// import { client } from 'api/client/client';
 import ProductList from 'components/ProductList/ProductList';
 import Pagination from 'components/Pagination/Pagination';
 import Search from 'components/Search/Search';
 
+import useApiContext from 'context/context';
 import classes from './Catalog.module.scss';
 
-function Catalog() {
-  const PRODUCTS_PER_PAGE = 6;
-  const INIT_PAGE = 1;
+const PRODUCTS_PER_PAGE = 6;
+const INIT_PAGE = 1;
 
+function Catalog() {
+  const { client } = useApiContext();
   const [products, setProducts] = useState<ProductProjection[]>([]);
   const [currentPage, setCurrentPage] = useState(INIT_PAGE);
   const [length, setLength] = useState(PRODUCTS_PER_PAGE);
@@ -34,7 +36,7 @@ function Catalog() {
         if (resp.body.total) setLength(resp.body.total);
         setProducts(resp.body.results);
       });
-  }, [products, currentPage, searchInput]);
+  }, [currentPage, searchInput, client]);
 
   const handlePagination = (pageNum: number) => {
     setCurrentPage(pageNum);

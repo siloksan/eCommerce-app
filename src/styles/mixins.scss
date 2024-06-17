@@ -4,10 +4,9 @@
   &:hover {
     text-decoration: none;
   }
-  
 }
 
-@mixin hover-shift($shift-size: 3px, $shadow-color: var(--color-shade)) {
+@mixin hover-active-shift($shift-size: 3px, $shadow-color: var(--color-shade)) {
   transition: 0.3s;
   &:hover {
     box-shadow: $shift-size $shift-size 0px 0px $shadow-color;
@@ -16,6 +15,14 @@
   &:active {
     box-shadow: -($shift-size) -3px 0px 0px var(--color-light);
     transform: translate(0, 0);
+  }
+}
+
+@mixin hover-shift($shift-size: 3px, $shadow-color: var(--color-shade)) {
+  transition: 0.3s;
+  &:hover {
+    box-shadow: $shift-size $shift-size 0px 0px $shadow-color;
+    transform: translate(-($shift-size), -($shift-size));
   }
 }
 
@@ -37,7 +44,7 @@
   font-size: $font-size;
   font-weight: 700;
   color: var(--color-base-text);
-  @include hover-shift();
+  @include hover-active-shift();
 
   @if $accent {
     @include button--accent;
@@ -67,6 +74,18 @@
   cursor: pointer;
 }
 
+@mixin media-medium-desktop() {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin media-laptop() {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
 @mixin media-laptop() {
   @media (max-width: 1024px) {
     @content;
@@ -82,5 +101,16 @@
 @mixin media-mobile() {
   @media (max-width: 380px) {
     @content;
+  }
+}
+
+@mixin container-shadow($max-width: 100%) {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px var(--color-shade);
+  max-width: $max-width;
+  flex-direction: row;
+  @include media-medium-desktop {
+    padding: 6px;
   }
 }

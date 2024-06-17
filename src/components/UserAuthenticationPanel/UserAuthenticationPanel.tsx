@@ -1,25 +1,23 @@
-import { useNavigate } from 'react-router-dom';
-
-import useApiContext from 'context/context';
 import LinkButton from 'components/LinkButton/LinkButton';
 import Button from 'shared/Button/Button';
 
 import styles from './UserAuthenticationPanel.module.scss';
 
-function UserAuthenticationPanel() {
-  const { customerService } = useApiContext();
-  const navigate = useNavigate();
+interface Props {
+  userAuthorized: boolean;
+  logOut: () => void;
+}
 
-  const logOut = (): void => {
-    customerService.logOut();
-    navigate('/');
-  };
-
+function UserAuthenticationPanel({ userAuthorized, logOut }: Props) {
   return (
     <div className={styles.panel}>
-      <LinkButton text="Log in" link="login" accent={false} />
-      <LinkButton text="Sign in" link="register" accent />
-      <Button label="Log out" handleClick={logOut} />
+      {!userAuthorized && (
+        <>
+          <LinkButton text="Log in" link="login" accent={false} additionalClass={styles.button} />
+          <LinkButton text="Sign in" link="register" accent additionalClass={styles.button} />
+        </>
+      )}
+      {userAuthorized && <Button label="Log out" handleClick={logOut} additionalClass={styles.button} />}
     </div>
   );
 }

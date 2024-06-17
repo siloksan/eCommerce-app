@@ -28,6 +28,15 @@ function ImageSlider({ images = imagesPlaceholder, alt = '' }: Props) {
       </SwiperSlide>
     );
   });
+
+  if (images.length === 1) {
+    return (
+      <div className={styles.container}>
+        <img src={images[0]} alt={alt} />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       <Swiper
@@ -40,17 +49,19 @@ function ImageSlider({ images = imagesPlaceholder, alt = '' }: Props) {
       >
         {swiperSlideList}
       </Swiper>
-      <Swiper
-        onSwiper={setThumbsSwiper}
-        spaceBetween={10}
-        slidesPerView={images.length}
-        freeMode
-        watchSlidesProgress
-        modules={[FreeMode, Navigation, Thumbs]}
-        className={styles.swiper}
-      >
-        {swiperSlideList}
-      </Swiper>
+      {images.length > 1 && (
+        <Swiper
+          onSwiper={setThumbsSwiper}
+          spaceBetween={10}
+          slidesPerView={images.length}
+          freeMode
+          watchSlidesProgress
+          modules={[FreeMode, Navigation, Thumbs]}
+          className={styles.swiper}
+        >
+          {swiperSlideList}
+        </Swiper>
+      )}
     </div>
   );
 }
