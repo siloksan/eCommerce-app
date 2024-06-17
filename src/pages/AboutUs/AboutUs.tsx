@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import styles from './AboutUs.module.scss';
 import Andrey from '../../assets/imgs/Andrey.jpg';
 import Eugeniy from '../../assets/imgs/Eugeniy.jpg';
+import Yekaterina from '../../assets/imgs/Yekaterina.jpg';
 
 const teamMembers = [
   {
@@ -24,7 +25,7 @@ const teamMembers = [
     contributions:
       'Catherine has been instrumental in designing and implementing the user interface for our main application. She leads the UI/UX design efforts and is always focused on improving of design.',
     github: 'https://github.com/schemingcate',
-    photo: Andrey,
+    photo: Yekaterina,
   },
   {
     id: 3,
