@@ -6,6 +6,7 @@ import Andrey from '../../assets/imgs/Andrey.jpg';
 import Eugeniy from '../../assets/imgs/Eugeniy.jpg';
 import Yekaterina from '../../assets/imgs/Yekaterina.jpg';
 
+
 const teamMembers = [
   {
     id: 1,
