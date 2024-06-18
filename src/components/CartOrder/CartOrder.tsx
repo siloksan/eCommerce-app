@@ -4,6 +4,8 @@ import { CentPrecisionMoney } from '@commercetools/platform-sdk';
 import { useCartContext } from 'context/cart-context';
 import useApiContext from 'context/context';
 import Price from 'components/Price/Price';
+import { ChangeEvent, useState } from 'react';
+import { toast } from 'react-toastify';
 import styles from './CartOrder.module.scss';
 
 interface Props {
@@ -17,7 +19,30 @@ function CartOrder({ totalPrice, productsCount, totalPriceWithoutDiscount }: Pro
   const price = centAmount / 100;
 
   const { setCartState } = useCartContext();
-  const { cartService } = useApiContext();
+  const { cartService, client } = useApiContext();
+  const [promo, setPromo] = useState('');
+
+  function handleInput(e: ChangeEvent<HTMLInputElement>) {
+    setPromo(e.target.value);
+  }
+
+  function applyPromoCode(code: string) {
+    if (client.storageController.getItem('promo')) {
+      toast.error("You've already activated your promo code!");
+      return;
+    }
+    cartService.addDiscountCode(code).then((res) => {
+      if (res === true) {
+        cartService.getCart().then((cart) => {
+          if (cart) setCartState(cart);
+        });
+        client.storageController.setItem('promo', code);
+        toast.success('The promo code is active!');
+      } else {
+        toast.error('Incorrect promo code!');
+      }
+    });
+  }
 
   function clearShoppingCart() {
     cartService.removeAllGoods().then(() => {
@@ -32,6 +57,11 @@ function CartOrder({ totalPrice, productsCount, totalPriceWithoutDiscount }: Pro
       <div className={styles.order_btn}>
         <Button label="Go to checkout" />
       </div>
+      <label htmlFor="promo">
+        Please enter your promo code:
+        <input value={promo} type="text" className={styles.input} id="promo" onChange={(e) => handleInput(e)} />
+      </label>
+      <Button label="Apply Promo" handleClick={() => applyPromoCode(promo)} />
       <p className={styles.info}>Available delivery methods and times can be selected when placing an order</p>
       <div className={styles.body}>
         <h2>Your shopping cart:</h2>
