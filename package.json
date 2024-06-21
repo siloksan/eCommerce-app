@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc -b && vite build",
     "format": "prettier --write ./src",
     "ci:format": "prettier --check ./src",
     "test": "vitest",
@@ -56,7 +56,7 @@
     "jsdom": "^24.1.0",
     "prettier": "^3.2.5",
     "sass": "^1.76.0",
-    "typescript": "^5.2.2",
+    "typescript": "^5.5.2",
     "validate-branch-name": "^1.3.0",
     "vite": "^5.3.1",
     "vitest": "^1.6.0"
