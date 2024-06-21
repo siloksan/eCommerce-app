@@ -55,6 +55,8 @@
     "vite.config.ts",
     ".eslintrc.cjs",
     "src",
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ],
   "references": [
     {
