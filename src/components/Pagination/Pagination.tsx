@@ -22,6 +22,7 @@ function Pagination({ productsPerPage, length, paginationHandler, currentPage }:
           type="button"
           key={page}
           onClick={() => paginationHandler(page)}
+          data-testid="pagination-button"
         >
           {page}
         </button>

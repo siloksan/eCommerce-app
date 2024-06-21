@@ -23,7 +23,8 @@
     "noFallthroughCasesInSwitch": true,
     /* Vitests */
     "types": [
-      "@types/react-dom"
+      "@types/react-dom",
+      "vitest/globals"
     ],
     /* Paths */
     "baseUrl": "src",

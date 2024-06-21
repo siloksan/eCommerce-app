@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
 
 import Button from 'shared/Button/Button';
 import styles from 'shared/Button/Button.module.scss';
