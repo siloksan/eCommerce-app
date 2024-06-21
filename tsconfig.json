@@ -55,7 +55,6 @@
     "vite.config.ts",
     ".eslintrc.cjs",
     "src",
-    "src/tests"
   ],
   "references": [
     {
