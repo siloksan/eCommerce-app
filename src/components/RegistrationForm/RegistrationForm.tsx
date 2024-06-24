@@ -42,7 +42,7 @@ function RegistrationForm() {
 
   const navigate = useNavigate();
 
-  const { customerService } = useApiContext();
+  const { customerService, cartService } = useApiContext();
   const { setCartState } = useCartContext();
   /* для отслеживания состояния какой из адрессов будет применён как общий для доставки и выставления счёта.
   если один из них false, то со значением true будет общий адресс.
@@ -72,7 +72,9 @@ function RegistrationForm() {
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const success = await customerService.signUp(data, address);
     if (success) {
-      setCartState(null);
+      const cart = await cartService.getCart();
+      customerService.userAuthorized = true;
+      if (cart) setCartState(cart);
       navigate('/');
     }
   };
