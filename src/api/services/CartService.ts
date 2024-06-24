@@ -263,6 +263,4 @@ class CartService {
 
 const cartService = new CartService();
 
-export { cartService };
-
-export type { CartService };
+export { cartService, CartService };

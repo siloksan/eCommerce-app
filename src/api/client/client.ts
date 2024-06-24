@@ -116,6 +116,4 @@ class Client {
 
 const client = new Client();
 
-export { client };
-
-export type { Client };
+export { client, Client };

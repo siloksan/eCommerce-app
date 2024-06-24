@@ -200,6 +200,4 @@ class CustomerService {
 
 const customerService = new CustomerService();
 
-export { customerService };
-
-export type { CustomerService };
+export { customerService, CustomerService };
