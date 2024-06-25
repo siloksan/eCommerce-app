@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import Button from 'shared/Button/Button';
 import LoginFormFields from 'components/LoginForm/LoginForm';
@@ -22,22 +21,15 @@ function LoginForm() {
   const navigate = useNavigate();
 
   const { handleSubmit } = methods;
-  const [redirectToMain, setRedirectToMain] = useState(false);
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const isAuthorized = await customerService.signIn({ username: data.email, password: data.password });
     if (isAuthorized) {
       const cart = await cartService.getCart();
       if (cart) setCartState(cart);
-      setRedirectToMain(true);
       navigate('/');
     }
   };
-
-  if (redirectToMain) {
-    navigate('/');
-    return null;
-  }
 
   return (
     <div className={classes.container}>
