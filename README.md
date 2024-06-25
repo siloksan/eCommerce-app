@@ -85,3 +85,42 @@ To run ESLint checking for syntax and style errors, use the following command:
 ```bash
 npm run lint
 ```
+### Contributing
+Contribution Guidelines
+We welcome contributions from the community. Here are some guidelines to follow:
+
+#### 1.Fork the repository:
+
+Click the Fork button at the top right corner of the repository page.
+
+Clone your forked repository:
+
+```
+git clone https://github.com/your-username/repo.git
+cd repo
+```
+#### 2.Create a new branch for your feature or bug fix:
+
+```
+git checkout -b feature/YourFeatureName
+```
+#### 4.Make your changes and commit them:
+
+```
+git add .
+git commit -m "Add detailed description of your changes"
+```
+#### 5.Push your changes to your forked repository:
+
+```
+git push --set-upstream origin feature/YourFeatureName
+```
+#### 6.Submit a pull request:
+
+Go to the original repository on GitHub.
+Click on the Pull Requests tab.
+Click the New Pull Request button.
+Select the branch you just pushed from your forked repository.
+Provide a detailed description of your changes and submit the pull request.
+
+For any questions or suggestions, please contact tutel07@gmail.com.
