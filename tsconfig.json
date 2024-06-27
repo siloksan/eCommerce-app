@@ -23,7 +23,8 @@
     "noFallthroughCasesInSwitch": true,
     /* Vitests */
     "types": [
-      "@types/react-dom"
+      "@types/react-dom",
+      "vitest/globals"
     ],
     /* Paths */
     "baseUrl": "src",
@@ -49,12 +50,17 @@
       "styles/*": [
         "styles/*"
       ],
+      "tests/*": [
+        "tests/*"
+      ],
     }
   },
   "include": [
     "vite.config.ts",
     ".eslintrc.cjs",
-    "src"
+    "src",
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ],
   "references": [
     {

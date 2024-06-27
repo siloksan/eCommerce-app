@@ -11,15 +11,15 @@ interface Props {
 function Button({ label, type = 'button', accent = true, additionalClass, handleClick }: Props) {
   let className = classes.button;
   if (accent) {
-    className += `  ${classes.buttonAccent}`;
+    className += ` ${classes.buttonAccent}`;
   }
 
   if (additionalClass) {
-    className += `  ${additionalClass}`;
+    className += ` ${additionalClass}`;
   }
 
   return (
-    <button type={type} className={className} onClick={handleClick}>
+    <button type={type} className={className} onClick={handleClick} data-testid="button">
       {label}
     </button>
   );

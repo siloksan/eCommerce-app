@@ -28,6 +28,4 @@ class ProductService {
 
 const productService = new ProductService();
 
-export { productService };
-
-export type { ProductService };
+export { productService, ProductService };

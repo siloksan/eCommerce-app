@@ -11,7 +11,7 @@ function Price({ currency, price, discountedPrice }: PriceProps) {
   const currencySymbol = currencyCodeToSymbol(currency);
 
   return discountedPrice ? (
-    <div className={classes.card__price}>
+    <div className={classes.card__price} data-testid="price">
       <span>
         {discountedPrice}
         {currencySymbol}
@@ -22,7 +22,7 @@ function Price({ currency, price, discountedPrice }: PriceProps) {
       </span>
     </div>
   ) : (
-    <div className={classes.card__price}>
+    <div className={classes.card__price} data-testid="price">
       <span>
         {price}
         {currencySymbol}
