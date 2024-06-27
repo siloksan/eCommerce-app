@@ -73,7 +73,7 @@ class CustomerService {
         if (res.statusCode === 200) {
           const firstName = JSON.stringify(res.body.firstName);
           toast(`Welcome to the Coffee Lovers ${firstName}`);
-          client.storageController.setUserStatus(UserStatus.registered);
+          this.client.storageController.setUserStatus(UserStatus.registered);
           this.userAuthorized = true;
           return true;
         }

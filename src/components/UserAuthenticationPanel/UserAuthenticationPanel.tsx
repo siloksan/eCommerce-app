@@ -14,7 +14,7 @@ function UserAuthenticationPanel({ userAuthorized, logOut }: Props) {
       {!userAuthorized && (
         <>
           <LinkButton text="Log in" link="login" accent={false} additionalClass={styles.button} />
-          <LinkButton text="Sign in" link="register" accent additionalClass={styles.button} />
+          <LinkButton text="Sign up" link="register" accent additionalClass={styles.button} />
         </>
       )}
       {userAuthorized && <Button label="Log out" handleClick={logOut} additionalClass={styles.button} />}
