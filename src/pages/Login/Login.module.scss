@@ -1,0 +1,6 @@
+@use 'src/styles/mixins.scss' as *;
+
+.container {
+  @include form;
+  margin-top: 50px;
+}

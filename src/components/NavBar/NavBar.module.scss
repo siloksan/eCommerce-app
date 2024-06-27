@@ -1,0 +1,74 @@
+@use 'src/styles/mixins.scss' as *;
+
+.navbar {
+  margin-left: 20px;
+  flex-grow: 1;
+  @include media-laptop {
+    margin-left: 0px;
+  }
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  z-index: 10;
+  @include media-laptop {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    position: absolute;
+    margin-top: 95px;
+    top: 0;
+    left: 0;
+    background-color: var(--color-base-bg);
+    padding: 10px 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.5s;
+  }
+}
+
+.open {
+  display: flex;
+  transform: scaleY(1);
+}
+
+.item {
+  padding: 10px;
+  position: relative;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.dropdown_btn {
+  display: none;
+  font-size: 24px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  @include media-laptop {
+    display: block;
+  }
+}
+
+.item::before {
+  content: '';
+  position: absolute;
+  bottom: 0.1rem;
+  width: 100%;
+  height: 0.2rem;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+  background: var(--color-accent);
+}
+
+.item:hover::before {
+  transform: scaleX(1);
+}
+
+.link {
+  @include link-reset;
+}
