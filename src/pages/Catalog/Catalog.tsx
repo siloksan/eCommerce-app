@@ -50,10 +50,6 @@ function Catalog() {
   return (
     <>
       <h2 className={classes.heading}>Catalog</h2>
-      <div>
-        {/* <div>Filters container</div> */}
-        {/* <div>* Filter</div> */}
-      </div>
       <Search searchHandler={handleSearch} />
       <ProductList products={products} />
       <Pagination

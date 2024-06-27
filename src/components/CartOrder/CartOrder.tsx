@@ -53,7 +53,7 @@ function CartOrder({ totalPrice, productsCount, totalPriceWithoutDiscount }: Pro
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="cart-order">
       <div className={styles.order_btn}>
         <Button label="Go to checkout" />
       </div>
@@ -67,7 +67,7 @@ function CartOrder({ totalPrice, productsCount, totalPriceWithoutDiscount }: Pro
         <h2>Your shopping cart:</h2>
         <div className={styles.order_info}>
           <div>
-            Products <span>({productsCount}):</span>
+            Products <span data-testid="products-count">({productsCount}):</span>
           </div>
           <div>
             <Price price={totalPriceWithoutDiscount} currency={currencyCode} discountedPrice={price} />

@@ -12,6 +12,7 @@ interface ContextType {
 }
 
 export const dataContext = { client, customerService, productService, cartService };
+export type DataContext = typeof dataContext;
 
 export const ApiContext = createContext<ContextType | null>(null);
 

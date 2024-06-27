@@ -37,7 +37,7 @@ export default function Header() {
   const basketImg = <SvgComponent svgPath={basketSvg} alt="user icon" style={{ maxHeight: '50px' }} />;
   const userImg = <SvgComponent svgPath={userSvg} alt="basket icon" style={{ maxHeight: '50px' }} />;
   return (
-    <header className={styles.header}>
+    <header className={styles.header} data-testid="header">
       <Link to="/">
         <Logo />
       </Link>

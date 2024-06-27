@@ -64,7 +64,7 @@ function ProductDetails({ name = '', prices, description = '', id: productId }: 
   }, [cart, productId]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="product-details">
       <h1 className={styles.title}>{name}</h1>
       <div className={styles.price}>
         <Price currency={currencyCode} price={Number(price)} discountedPrice={Number(discountedPrice)} />

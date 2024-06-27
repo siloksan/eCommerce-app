@@ -50,6 +50,9 @@
       "styles/*": [
         "styles/*"
       ],
+      "tests/*": [
+        "tests/*"
+      ],
     }
   },
   "include": [

@@ -9,7 +9,7 @@ function Main() {
   return (
     <>
       <h2>Links and routes to the pages:</h2>
-      <ul>
+      <ul data-testid="links">
         <li>
           <Link to="/login">Login Page</Link> - /login
         </li>

@@ -10,7 +10,7 @@ interface Props {
 
 function UserAuthenticationPanel({ userAuthorized, logOut }: Props) {
   return (
-    <div className={styles.panel}>
+    <div className={styles.panel} data-testid="user-authentication-panel">
       {!userAuthorized && (
         <>
           <LinkButton text="Log in" link="login" accent={false} additionalClass={styles.button} />

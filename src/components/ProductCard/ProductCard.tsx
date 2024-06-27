@@ -85,7 +85,7 @@ function ProductCard({
   }, [cart, productId]);
 
   return (
-    <div className={classes.card}>
+    <div className={classes.card} data-testid="product-card">
       <Link to={`../product/${productKey}`}>
         <div className={classes.card__imageContainer}>
           <img src={img} alt="Product" />
